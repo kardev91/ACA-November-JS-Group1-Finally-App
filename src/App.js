@@ -1,10 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import {AuthProvider} from "./contexts/AuthContext";
+import Auth from './components/Auth'
 
 function App() {
-  return (
+
+
+    return (
     <div className="App">
-     Home Page
+        <Router>
+            <AuthProvider>
+                <Route>
+                    <Route path="/" exact component={Auth} />
+                </Route>
+            </AuthProvider>
+        </Router>
     </div>
   );
 }
