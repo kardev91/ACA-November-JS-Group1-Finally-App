@@ -1,29 +1,14 @@
-import React  from "react";
-import {useAuth} from "../contexts/AuthContext";
-import {useHistory} from "react-router-dom"
-import {Button} from "@material-ui/core";
+import React, { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import AuthForm from "./forms/AuthForm";
 
+export default function Auth() {
+  const  login  = useContext(AuthContext)
 
-export default function Auth(){
+  function handleLogin(email, password) {
+    localStorage.getItem("authToken");
+      login(email, password);
+  }
 
-    const {login} = useAuth();
-    const history = useHistory();
-
-    function handleLogin (event){
-        event.preventDefault();
-        try {
-            login('aaa@aa.aa', 'aaa@aa.aa')
-            history.push('/')
-        }catch {
-            alert(`Failed to log in`);
-        }
-    }
-
-
-
-    return (
-        <>
-          <Button onClick={handleLogin} type="submit">Log In</Button>
-        </>
-    )
+  return <AuthForm loginHandle={handleLogin} />;
 }
