@@ -1,14 +1,8 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import React from "react";
 import AuthForm from "./forms/AuthForm";
+import { UserLogin } from "../helpers_functions/UserAuth";
 
 export default function Auth() {
-  const  login  = useContext(AuthContext)
 
-  function handleLogin(email, password) {
-    localStorage.getItem("authToken");
-      login(email, password);
-  }
-
-  return <AuthForm loginHandle={handleLogin} />;
+  return <AuthForm loginHandle={UserLogin} />;
 }

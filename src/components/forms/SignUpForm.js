@@ -1,29 +1,48 @@
 import {
-    Avatar,
-    Button,
-    Checkbox,
-    FormControlLabel,
-    Grid,
-    Typography,
-    Box,
-    Container,
-    CssBaseline,
-    TextField
-  } from "@material-ui/core";
+  Avatar,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Typography,
+  Box,
+  Container,
+  CssBaseline,
+  TextField,
+} from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 
-  import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-  import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-  import { Link } from "react-router-dom";
-  import { useState } from "react";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { Link, useHistory } from "react-router-dom";
+import { useState } from "react";
 
 const theme = createTheme();
 
-export default function SignUpForm({signUpHandle}) {
+export default function SignUpForm({ signUpHandle }) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const history = useHistory();
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const signUpUser = async () => {
+    try {
+      await signUpHandle(email, password, firstName, lastName);
+      history.push("/");
+      setError("");
+    } catch (error) {
+      if (error.message === "Firebase: Error (auth/invalid-email).") {
+        setError("Please enter valid email");
+      } else if (
+        error.message ===
+        "Firebase: Password should be at least 6 characters (auth/weak-password)."
+      ) {
+        setError("Password should be at least 6 characters");
+      }
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -32,18 +51,27 @@ export default function SignUpForm({signUpHandle}) {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate  style={{ marginTop: 10 }}>
+          <Box component="form" noValidate style={{ marginTop: 10 }}>
+            {error ? (
+              <Alert
+                severity="error"
+                variant="filled"
+                style={{ marginBottom: 20 }}
+              >
+                {error}
+              </Alert>
+            ) : null}
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -55,7 +83,7 @@ export default function SignUpForm({signUpHandle}) {
                   label="First Name"
                   autoFocus
                   variant="outlined"
-                  onChange={(event) => setFirstName(event.target.value)}  
+                  onChange={(event) => setFirstName(event.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -97,18 +125,20 @@ export default function SignUpForm({signUpHandle}) {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
             </Grid>
             <Button
-              type="submit"
+              // type="submit"
               fullWidth
               variant="contained"
               color="primary"
               style={{ marginTop: 20, marginBottom: 10 }}
-              onClick={() => {signUpHandle(firstName,lastName,email,password)}}
+              onClick={signUpUser}
             >
               Sign Up
             </Button>

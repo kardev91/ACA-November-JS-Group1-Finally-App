@@ -1,21 +1,7 @@
-import React, { useContext } from "react";
-import { SignUpContext } from "../contexts/SignUpContext";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import SignUpForm from "./forms/SignUpForm";
+import { UserSignUp } from "../helpers_functions/UserSignUp";
 
 export default function SignUp() {
-  const history = useHistory();
-
-  const signUp = useContext(SignUpContext);
-
-  const handleSignUp = async (firstName, lastName, email, password) => {
-    try {
-      signUp(email, password, firstName, lastName);
-      history.push("/");
-    } catch {
-      alert(`Failed to log in`);
-    }
-  };
-
-  return <SignUpForm signUpHandle={handleSignUp} />;
+  return <SignUpForm signUpHandle={UserSignUp} />;
 }

@@ -10,10 +10,11 @@ import {
   CssBaseline,
   TextField,
 } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 
 const theme = createTheme();
@@ -21,6 +22,26 @@ const theme = createTheme();
 export default function AuthForm({ loginHandle, forgotPassword }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const history = useHistory();
+
+  const loginUser = async () => {
+    try {
+      await loginHandle(email, password);
+      history.push("/");
+      setError("");
+    } catch (error) {
+      console.log(error.message)
+      if (error.message === "Firebase: Error (auth/invalid-email).") {
+        setError("Please enter valid email");
+      } else if (
+        error.message ===
+        "Firebase: Error (auth/wrong-password)."
+      ) {
+        setError("Your password is wrong");
+      }
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -52,6 +73,15 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
               Sign in
             </Typography>
             <Box component="form" noValidate style={{ mrginTop: 2 }}>
+              {error ? (
+                <Alert
+                  severity="error"
+                  variant="filled"
+                  style={{ marginBottom: 20 }}
+                >
+                  {error}
+                </Alert>
+              ) : null}
               <TextField
                 margin="normal"
                 required
@@ -81,18 +111,17 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
                 label="Remember me"
               />
               <Button
-                type="submit"
                 fullWidth
                 variant="contained"
                 style={{ marginTop: 3, marginBottom: 2 }}
                 color="primary"
-                onClick={() => loginHandle(email, password)}
+                onClick={loginUser}
               >
                 Sign In
               </Button>
               <Grid container style={{ marginTop: 10 }}>
                 <Grid item xs>
-                  <Link  variant="body2">
+                  <Link to="/reset-password" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
