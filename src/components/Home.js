@@ -8,6 +8,7 @@ export default function Home() {
   const  productList  = useContext(ProductContext);
   return (
     <>
+        <NavigationBar/>
       {productList.map((product) => {
        return <ProductCard key={product.id} product = {product} /> 
       })}
