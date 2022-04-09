@@ -4,7 +4,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import MenuOpenIcon from '@material-ui/icons/MenuOpen';
 import { SidebarData } from '../../data/SiderBarData';
 import "./NavigationBar.css";
-
+import ListItem from '../SharedComponents/ListItem'
 function NavigationBar(){
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
@@ -24,14 +24,7 @@ function NavigationBar(){
                             </Link>
                         </li>
                         {SidebarData.map((item, index) => {
-                            return (
-                                <li key={index} className={item.cName}>
-                                    <Link to={item.path}>
-                                        {item.icon}
-                                        <span>{item.title}</span>
-                                    </Link>
-                                </li>
-                            );
+                           return <ListItem item={item} index={index}/>
                         })}
                     </ul>
                 </nav>
