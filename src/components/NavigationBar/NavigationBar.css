@@ -1,16 +1,19 @@
 .navbar {
-    background-color: rgba(49, 49, 54, 0.993);;
+    background-color: rgba(49, 49, 54, 0.993);
     height: 80px;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
 }
 
 .menu-bars {
-    margin-left: 2rem;
-    font-size: 2rem;
     background: none;
 }
+
+.menu-bars svg{
+    width: 40px;
+    height: 40px;
+} 
 
 .nav-menu {
     background-color: rgba(49, 49, 54, 0.993);;
@@ -73,4 +76,45 @@ span {
 
 .icon {
     color: white;
+}
+
+.headerSearch {
+    width: 460px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.headerLogo {
+    width: 70px;
+    height: 70px;
+    margin: 0 100px;
+}
+
+.headerControls {
+    width: 500px;
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.headerControlsButton {
+    width: 120px;
+    height: 30px;
+    border-radius: 30px;
+    border: none;
+    margin: 0 10px;
+}
+
+.headerControlsButton a{
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.headerSearchInput {
+    width: 300px;
+    height: 30px;
+    border-radius: 30px;
+    border: none
 }

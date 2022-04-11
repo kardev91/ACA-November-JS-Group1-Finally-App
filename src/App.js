@@ -1,8 +1,7 @@
-
-import './App.css';
-import React, { Suspense } from 'react';
+import "./App.css";
+import React from "react";
 import Salad from "./components/Salad";
-import Soup from "./components/Soup"
+import Soup from "./components/Soup";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { AuthContext } from "./contexts/AuthContext";
 import { ProductContext } from "./contexts/ProductContext";
@@ -17,7 +16,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <Suspense fallback={<Home/>}>
         <AuthContext.Provider value={auth.currentUser}>
           <ProductContext.Provider value={GetProducts()}>
             <Route>
@@ -30,7 +28,6 @@ function App() {
             </Route>
           </ProductContext.Provider>
         </AuthContext.Provider>
-  </Suspense>
       </Router>
     </div>
   );
