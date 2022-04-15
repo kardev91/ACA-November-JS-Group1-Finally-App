@@ -7,17 +7,23 @@ import { SidebarData } from "../../data/SiderBarData";
 import "./NavigationBar.css";
 import ListItem from "../SharedComponents/ListItem";
 import { AuthContext } from "../../contexts/AuthContext";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../configurations/firebase";
+import logo from "../../logo.png";
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
-  let user = useContext(AuthContext);
+  const [user, setUser] = useState(null);
+
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+
+  console.log(auth.currentUser);
 
   const showSidebar = () => setSidebar(!sidebar);
 
   const logout = async () => {
-    user = null;
     await signOut(auth);
   };
 
@@ -34,29 +40,35 @@ function NavigationBar() {
         <div className="headerSearch">
           <input className="headerSearchInput" type="text" />
         </div>
-        <div className="headerLogo">Logo here</div>
+        <div className="headerLogo">
+          <Link to="/">
+            <img src={logo} />
+          </Link>
+        </div>
         <div className="headerControls">
           {!user ? (
             <>
-              <button className="headerControlsButton">
-                <Link to="sign-in">Log In</Link>
-              </button>
-              <button className="headerControlsButton">
-                <Link to="sign-up">Register</Link>
-              </button>
+              <Link to="sign-in">
+                <button className="headerControlsButton">Sign In</button>
+              </Link>
+              <Link to="sign-up">
+                <button className="headerControlsButton">Register</button>
+              </Link>
             </>
           ) : (
             <>
-              <p>Hi ` {user.email}</p>
+              <p>Loged in` {user.email}</p>
               <button onClick={logout} className="headerControlsButton">
                 Log Out
               </button>
             </>
           )}
-          <ShoppingCartIcon
-            fontSize="large"
-            htmlColor="white"
-          ></ShoppingCartIcon>
+          <Link to='cart'>
+            <ShoppingCartIcon
+              fontSize="large"
+              htmlColor="502314"
+            ></ShoppingCartIcon>
+          </Link>
         </div>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>

@@ -11,6 +11,7 @@ import RessetPassword from "./components/forms/RessetPassword";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/sign-in" component={Auth} />
               <Route path="/sign-up" component={SignUp} />
               <Route path="/reset-password" component={RessetPassword} />
+              <Route path="/cart" component={Cart} />
             </Route>
           </ProductContext.Provider>
         </AuthContext.Provider>

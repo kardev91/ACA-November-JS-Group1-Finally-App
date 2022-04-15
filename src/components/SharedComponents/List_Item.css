@@ -9,7 +9,7 @@
 
 .nav-text a {
     text-decoration: none;
-    color: #f5f5f5;
+    color: #502314;
     font-size: 15px;
     width: 95%;
     height: 100%;
@@ -20,5 +20,6 @@
 }
 
 .nav-text a:hover {
-    background-color: #1a83ff;
+    background-color: #502314;
+    color: #f5ebdc;
 }
