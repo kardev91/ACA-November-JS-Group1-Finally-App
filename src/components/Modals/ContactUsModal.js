@@ -13,10 +13,10 @@ export default function ContactUsModal(){
     return (
         <>
             <button className="item1" onClick={() => setOpen(true)}>
-                Հետադարձ կապ
+                Contact Us
             </button>
             <Modal open={open} onClose={() => setOpen(false)} center>
-                <h2>Հետադարձ կապ</h2>
+                <h2>Contact Us</h2>
                 {contactUsText}
             </Modal>
         </>

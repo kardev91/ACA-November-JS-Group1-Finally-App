@@ -5,8 +5,7 @@ import Facebook from '@material-ui/icons/Facebook';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import AboutModal from "../Modals/AboutModal";
-import NewsModal from '../Modals/AboutModal'
-
+import NewsModal from '../Modals/NewsModal'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopyright } from "@fortawesome/free-solid-svg-icons";
 import {faCcVisa, faCcMastercard, faApplePay} from "@fortawesome/free-brands-svg-icons";
@@ -28,15 +27,15 @@ export default function Footer(){
                 <div className="item2">
                        <FontAwesomeIcon icon={faCopyright} />{" "}
                        <span style={{ paddingLeft: 5 }}>
-                        {new Date().getFullYear()} Բոլոր իրավունքները պաշտպանված են
+                        {new Date().getFullYear()} All rights reserved
                     </span>
-                    <a title={"Միացեք Մեզ Facebook-ում"} href="https://www.facebook.com/" target="_blank" className="item1">
+                    <a title={"Join us in Facebook"} href="https://www.facebook.com/" rel="noopener" className="item1">
                        <Facebook/>
                     </a>
-                    <a title={"Միացեք Մեզ Instagram-ում"} href="https://www.instagram.com/" target="_blank" className="item1">
+                    <a title={"Join us in Instagram"} href="https://www.instagram.com/" rel="noopener" className="item1">
                         <InstagramIcon/>
                     </a>
-                    <a title={"Դիտեք Մեզ Youtube-ում"} href="https://www.youtube.com/" target="_blank" className="item1">
+                    <a title={"Join us in Youtube"} href="https://www.youtube.com/" rel="noopener" className="item1">
                        <YouTubeIcon/>
                     </a>
                 </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 
-export const SidebarData = [
+export const SIDE_BAR_DATA = [
     {
         title: 'Pizza',
         path: '/pizza',
