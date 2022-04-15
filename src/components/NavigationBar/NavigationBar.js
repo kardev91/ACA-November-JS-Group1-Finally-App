@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { SidebarData } from "../../data/SiderBarData";
+import { SIDE_BAR_DATA } from "../../constant/SiderBarData";
 import "./NavigationBar.css";
-import ListItem from "../SharedComponents/ListItem";
-import { AuthContext } from "../../contexts/AuthContext";
+import ListItem from "../Shared/ListItem/ListItem";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../configurations/firebase";
 import logo from "../../logo.png";
@@ -18,6 +17,7 @@ function NavigationBar() {
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
+
 
   console.log(auth.currentUser);
 
@@ -42,7 +42,7 @@ function NavigationBar() {
         </div>
         <div className="headerLogo">
           <Link to="/">
-            <img src={logo} />
+            <img src={logo}  alt="" />
           </Link>
         </div>
         <div className="headerControls">
@@ -67,7 +67,7 @@ function NavigationBar() {
             <ShoppingCartIcon
               fontSize="large"
               htmlColor="502314"
-            ></ShoppingCartIcon>
+             ></ShoppingCartIcon>
           </Link>
         </div>
       </div>
@@ -78,8 +78,8 @@ function NavigationBar() {
               <CloseIcon className={"icon"} titleAccess={"Close menu"} />
             </Link>
           </li>
-          {SidebarData.map((item, index) => {
-            return <ListItem item={item} index={index} />;
+          {SIDE_BAR_DATA.map((item, index) => {
+            return <ListItem item={item} index={index}/>;
           })}
         </ul>
       </nav>

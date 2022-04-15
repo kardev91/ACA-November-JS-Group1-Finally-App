@@ -1,6 +1,6 @@
 import React from "react";
 import AuthForm from "./forms/AuthForm";
-import { UserLogin } from "../helpers_functions/UserAuth";
+import { UserLogin } from "../helper/UserAuth";
 
 export default function Auth() {
 

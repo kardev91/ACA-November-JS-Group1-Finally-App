@@ -13,10 +13,10 @@ export default function NewsModal(){
     return (
         <>
             <button className="item1" onClick={() => setOpen(true)}>
-                Նորություններ
+                News
             </button>
             <Modal open={open} onClose={() => setOpen(false)} center>
-                <h2>Նորություններ</h2>
+                <h2>News</h2>
                 {newsText}
             </Modal>
         </>
