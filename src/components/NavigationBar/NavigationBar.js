@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -9,6 +9,9 @@ import ListItem from "../Shared/ListItem/ListItem";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../configurations/firebase";
 import logo from "../../logo.png";
+import Button from "@material-ui/core/Button";
+import LoginPopUpModal from "../Modals/LoginPopUpModal"
+import {UserLogin} from "../../helper/UserAuth";
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
@@ -19,12 +22,11 @@ function NavigationBar() {
   });
 
 
-  console.log(auth.currentUser);
-
   const showSidebar = () => setSidebar(!sidebar);
 
   const logout = async () => {
     await signOut(auth);
+    localStorage.clear();
   };
 
   return (
@@ -63,12 +65,25 @@ function NavigationBar() {
               </button>
             </>
           )}
-          <Link to='cart'>
-            <ShoppingCartIcon
-              fontSize="large"
-              htmlColor="502314"
-             ></ShoppingCartIcon>
-          </Link>
+
+          {!user ? (
+              <>
+                <LoginPopUpModal loginHandle={UserLogin}/>
+              </>
+          ) : (
+              <>
+                <Button>
+                  <Link to='cart'>
+                    <ShoppingCartIcon
+                        fontSize="large"
+                        htmlColor="502314"
+                    />
+                  </Link>
+                </Button>
+              </>
+          )}
+
+
         </div>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
