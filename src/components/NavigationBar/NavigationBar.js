@@ -12,8 +12,8 @@ import logo from "../../logo.png";
 import SearchIcon from "@material-ui/icons/Search";
 import { SearchInputValueContext } from "../../contexts/SearchInputValueContext";
 import Button from "@material-ui/core/Button";
-import LoginPopUpModal from "../Modals/LoginPopUpModal"
-import {UserLogin} from "../../helper/UserAuth";
+import LoginPopUpModal from "../Modals/LoginPopUpModal";
+import { UserLogin } from "../../helper/UserAuth";
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
@@ -87,37 +87,27 @@ function NavigationBar() {
             </>
           ) : (
             <>
-              <p>Loged in` {user.email}</p>
+              <p>Hi {user.email}</p>
               <button onClick={logout} className="headerControlsButton">
                 Log Out
               </button>
             </>
           )}
-          <Link to="cart">
-            <ShoppingCartIcon
-              fontSize="large"
-              htmlColor="502314"
-            ></ShoppingCartIcon>
-          </Link>
 
           {!user ? (
-              <>
-                <LoginPopUpModal loginHandle={UserLogin}/>
-              </>
+            <>
+              <LoginPopUpModal loginHandle={UserLogin} />
+            </>
           ) : (
-              <>
-                <Button>
-                  <Link to='cart'>
-                    <ShoppingCartIcon
-                        fontSize="large"
-                        htmlColor="502314"
-                    />
-                  </Link>
-                </Button>
-              </>
+            <>
+              <Link to="cart">
+                <ShoppingCartIcon
+                  fontSize="large"
+                  htmlColor="502314"
+                ></ShoppingCartIcon>
+              </Link>
+            </>
           )}
-
-
         </div>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
