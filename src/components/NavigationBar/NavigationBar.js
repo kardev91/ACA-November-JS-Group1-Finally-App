@@ -11,6 +11,9 @@ import { auth } from "../../configurations/firebase";
 import logo from "../../logo.png";
 import SearchIcon from "@material-ui/icons/Search";
 import { SearchInputValueContext } from "../../contexts/SearchInputValueContext";
+import Button from "@material-ui/core/Button";
+import LoginPopUpModal from "../Modals/LoginPopUpModal"
+import {UserLogin} from "../../helper/UserAuth";
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
@@ -27,6 +30,7 @@ function NavigationBar() {
 
   const logout = async () => {
     await signOut(auth);
+    localStorage.clear();
   };
 
   const inputChangeHandler = (e) => {
@@ -95,6 +99,25 @@ function NavigationBar() {
               htmlColor="502314"
             ></ShoppingCartIcon>
           </Link>
+
+          {!user ? (
+              <>
+                <LoginPopUpModal loginHandle={UserLogin}/>
+              </>
+          ) : (
+              <>
+                <Button>
+                  <Link to='cart'>
+                    <ShoppingCartIcon
+                        fontSize="large"
+                        htmlColor="502314"
+                    />
+                  </Link>
+                </Button>
+              </>
+          )}
+
+
         </div>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
