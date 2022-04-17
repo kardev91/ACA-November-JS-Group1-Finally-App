@@ -10,31 +10,31 @@ export const SIDE_BAR_DATA = [
     },
     {
         title: 'Burgers',
-        path: '/burger',
+        path: '/burgers',
         icon: <MenuIcon/>,
         cName: 'nav-text'
     },
     {
-        title: 'BBQ',
-        path: '/bbq',
+        title: 'Barbecue',
+        path: '/barbecue',
         icon: <MenuIcon/>,
         cName: 'nav-text'
     },
     {
         title: 'Salads',
-        path: '/salad',
+        path: '/salads',
         icon: <MenuIcon/>,
         cName: 'nav-text'
     },
     {
         title: 'Drinks',
-        path: '/drink',
+        path: '/drinks',
         icon: <MenuIcon/>,
         cName: 'nav-text'
     },
     {
         title: 'Sweets',
-        path: '/sweet',
+        path: '/sweets',
         icon: <MenuIcon/>,
         cName: 'nav-text'
     }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
@@ -9,22 +9,34 @@ import ListItem from "../Shared/ListItem/ListItem";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../configurations/firebase";
 import logo from "../../logo.png";
+import SearchIcon from "@material-ui/icons/Search";
+import { SearchInputValueContext } from "../../contexts/SearchInputValueContext";
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
   const [user, setUser] = useState(null);
+  const [inputValue, setInputValue] = useState("");
+  const searchValueData = useContext(SearchInputValueContext);
+  const [searchValue, setSearchValue] = searchValueData;
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
 
-
-  console.log(auth.currentUser);
-
   const showSidebar = () => setSidebar(!sidebar);
 
   const logout = async () => {
     await signOut(auth);
+  };
+
+  const inputChangeHandler = (e) => {
+    return setInputValue(e.target.value);
+  };
+
+  const searchButton = (e) => {
+    e.stopPropagation();
+    setSearchValue(inputValue);
+    setInputValue("");
   };
 
   return (
@@ -38,11 +50,25 @@ function NavigationBar() {
           />
         </Link>
         <div className="headerSearch">
-          <input className="headerSearchInput" type="text" />
+          <label>
+            <SearchIcon onClick={searchButton} className="headerSearchIcon" />
+            <input
+              value={inputValue}
+              className="headerSearchInput"
+              onChange={(e) => inputChangeHandler(e)}
+              placeholder="Search food"
+              type="text"
+            />
+          </label>
         </div>
-        <div className="headerLogo">
+        <div
+          onClick={() => {
+            setInputValue("");
+          }}
+          className="headerLogo"
+        >
           <Link to="/">
-            <img src={logo}  alt="" />
+            <img src={logo} alt="" />
           </Link>
         </div>
         <div className="headerControls">
@@ -52,7 +78,7 @@ function NavigationBar() {
                 <button className="headerControlsButton">Sign In</button>
               </Link>
               <Link to="sign-up">
-                <button className="headerControlsButton">Register</button>
+                <button className="headerControlsButton">Sign Up</button>
               </Link>
             </>
           ) : (
@@ -63,11 +89,11 @@ function NavigationBar() {
               </button>
             </>
           )}
-          <Link to='cart'>
+          <Link to="cart">
             <ShoppingCartIcon
               fontSize="large"
               htmlColor="502314"
-             ></ShoppingCartIcon>
+            ></ShoppingCartIcon>
           </Link>
         </div>
       </div>
@@ -79,7 +105,7 @@ function NavigationBar() {
             </Link>
           </li>
           {SIDE_BAR_DATA.map((item, index) => {
-            return <ListItem item={item} index={index}/>;
+            return <ListItem item={item} index={index} />;
           })}
         </ul>
       </nav>
