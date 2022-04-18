@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import {Link} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -9,24 +9,38 @@ import ListItem from "../Shared/ListItem/ListItem";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../configurations/firebase";
 import logo from "../../logo.png";
+import SearchIcon from "@material-ui/icons/Search";
+import { SearchInputValueContext } from "../../contexts/SearchInputValueContext";
 import Button from "@material-ui/core/Button";
-import LoginPopUpModal from "../Modals/LoginPopUpModal"
-import {UserLogin} from "../../helper/UserAuth";
+import LoginPopUpModal from "../Modals/LoginPopUpModal";
+import { UserLogin } from "../../helper/UserAuth";
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
   const [user, setUser] = useState(null);
+  const [inputValue, setInputValue] = useState("");
+  const searchValueData = useContext(SearchInputValueContext);
+  const [searchValue, setSearchValue] = searchValueData;
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
-
 
   const showSidebar = () => setSidebar(!sidebar);
 
   const logout = async () => {
     await signOut(auth);
     localStorage.clear();
+  };
+
+  const inputChangeHandler = (e) => {
+    return setInputValue(e.target.value);
+  };
+
+  const searchButton = (e) => {
+    e.stopPropagation();
+    setSearchValue(inputValue);
+    setInputValue("");
   };
 
   return (
@@ -40,11 +54,25 @@ function NavigationBar() {
           />
         </Link>
         <div className="headerSearch">
-          <input className="headerSearchInput" type="text" />
+          <label>
+            <SearchIcon onClick={searchButton} className="headerSearchIcon" />
+            <input
+              value={inputValue}
+              className="headerSearchInput"
+              onChange={(e) => inputChangeHandler(e)}
+              placeholder="Search food"
+              type="text"
+            />
+          </label>
         </div>
-        <div className="headerLogo">
+        <div
+          onClick={() => {
+            setInputValue("");
+          }}
+          className="headerLogo"
+        >
           <Link to="/">
-            <img src={logo}  alt="" />
+            <img src={logo} alt="" />
           </Link>
         </div>
         <div className="headerControls">
@@ -54,12 +82,12 @@ function NavigationBar() {
                 <button className="headerControlsButton">Sign In</button>
               </Link>
               <Link to="sign-up">
-                <button className="headerControlsButton">Register</button>
+                <button className="headerControlsButton">Sign Up</button>
               </Link>
             </>
           ) : (
             <>
-              <p>Loged in` {user.email}</p>
+              <p>Hi {user.email}</p>
               <button onClick={logout} className="headerControlsButton">
                 Log Out
               </button>
@@ -67,23 +95,19 @@ function NavigationBar() {
           )}
 
           {!user ? (
-              <>
-                <LoginPopUpModal loginHandle={UserLogin}/>
-              </>
+            <>
+              <LoginPopUpModal loginHandle={UserLogin} />
+            </>
           ) : (
-              <>
-                <Button>
-                  <Link to='cart'>
-                    <ShoppingCartIcon
-                        fontSize="large"
-                        htmlColor="502314"
-                    />
-                  </Link>
-                </Button>
-              </>
+            <>
+              <Link to="cart">
+                <ShoppingCartIcon
+                  fontSize="large"
+                  htmlColor="502314"
+                ></ShoppingCartIcon>
+              </Link>
+            </>
           )}
-
-
         </div>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
@@ -94,7 +118,7 @@ function NavigationBar() {
             </Link>
           </li>
           {SIDE_BAR_DATA.map((item, index) => {
-            return <ListItem item={item} index={index}/>;
+            return <ListItem item={item} index={index} />;
           })}
         </ul>
       </nav>

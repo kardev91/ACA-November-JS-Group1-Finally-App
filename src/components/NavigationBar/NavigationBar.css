@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 0.5px solid #502314;
 }
 
 .menu-bars {
@@ -28,6 +29,8 @@
     left: -100%;
     transition: 850ms;
     z-index: 9;
+    border-right: 0.5px solid #502314;
+
 }
 
 .nav-menu.active {
@@ -63,6 +66,7 @@ span {
     display: flex;
     justify-content: left;
     align-items: center;
+    position: relative;
 }
 .headerLogo {
     width: 90px;
@@ -99,10 +103,18 @@ span {
 }
 
 .headerSearchInput {
-    width: 280px;
+    width: 260px;
     height: 30px;
     border-radius: 30px;
     border: 2px solid #502314;
     margin-left: 20px;
     outline: none;
+    padding-left: 40px;
+}
+
+.headerSearchIcon{
+    position: absolute;
+    left: 30px;
+    top: 13px;
+    cursor: pointer;
 }
