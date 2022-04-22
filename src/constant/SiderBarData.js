@@ -33,8 +33,8 @@ export const SIDE_BAR_DATA = [
         cName: 'nav-text'
     },
     {
-        title: 'Sweets',
-        path: '/sweets',
+        title: 'Dessert',
+        path: '/dessert',
         icon: <MenuIcon/>,
         cName: 'nav-text'
     }

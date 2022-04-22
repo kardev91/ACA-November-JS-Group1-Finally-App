@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
@@ -11,9 +12,9 @@ import { auth } from "../../configurations/firebase";
 import logo from "../../logo.png";
 import SearchIcon from "@material-ui/icons/Search";
 import { SearchInputValueContext } from "../../contexts/SearchInputValueContext";
-import Button from "@material-ui/core/Button";
 import LoginPopUpModal from "../Modals/LoginPopUpModal";
 import { UserLogin } from "../../helper/UserAuth";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
@@ -21,6 +22,7 @@ function NavigationBar() {
   const [inputValue, setInputValue] = useState("");
   const searchValueData = useContext(SearchInputValueContext);
   const [searchValue, setSearchValue] = searchValueData;
+  let history = useHistory();
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -37,29 +39,38 @@ function NavigationBar() {
     return setInputValue(e.target.value);
   };
 
-  const searchButton = (e) => {
-    e.stopPropagation();
+  const searchButton = () => {
     setSearchValue(inputValue);
     setInputValue("");
   };
 
+  const enterHendler = (e) => {
+    if (e.key === "Enter") {
+      searchButton();
+      history.push("/search");
+    }
+  };
+
   return (
-    <>
+    <div>
       <div className="navbar">
-        <Link to="#" className="menu-bars">
-          <MenuOpenIcon
-            className={"icon"}
-            onClick={showSidebar}
-            titleAccess={"Open menu"}
-          />
-        </Link>
         <div className="headerSearch">
+          <Link to="#" className="menu-bars">
+            <MenuOpenIcon
+              className={"icon"}
+              onClick={showSidebar}
+              titleAccess={"Open menu"}
+            />
+          </Link>
           <label>
-            <SearchIcon onClick={searchButton} className="headerSearchIcon" />
+            <Link to="search">
+              <SearchIcon onClick={searchButton} className="headerSearchIcon" />
+            </Link>
             <input
               value={inputValue}
               className="headerSearchInput"
               onChange={(e) => inputChangeHandler(e)}
+              onKeyPress={enterHendler}
               placeholder="Search food"
               type="text"
             />
@@ -78,6 +89,7 @@ function NavigationBar() {
         <div className="headerControls">
           {!user ? (
             <>
+              {/* <AccountCircleIcon htmlColor="#533d35" fontSize="medium" /> */}
               <Link to="sign-in">
                 <button className="headerControlsButton">Sign In</button>
               </Link>
@@ -87,7 +99,8 @@ function NavigationBar() {
             </>
           ) : (
             <>
-              <p>Hi {user.email}</p>
+              <AccountCircleIcon htmlColor="#533d35" fontSize="large" />
+              {user.email}
               <button onClick={logout} className="headerControlsButton">
                 Log Out
               </button>
@@ -103,7 +116,7 @@ function NavigationBar() {
               <Link to="cart">
                 <ShoppingCartIcon
                   fontSize="large"
-                  htmlColor="502314"
+                  htmlColor="#533d35"
                 ></ShoppingCartIcon>
               </Link>
             </>
@@ -118,11 +131,11 @@ function NavigationBar() {
             </Link>
           </li>
           {SIDE_BAR_DATA.map((item, index) => {
-            return <ListItem item={item} index={index} />;
+            return <ListItem key={item.title} item={item} index={index} />;
           })}
         </ul>
       </nav>
-    </>
+    </div>
   );
 }
 

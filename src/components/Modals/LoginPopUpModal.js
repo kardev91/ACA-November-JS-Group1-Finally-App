@@ -12,7 +12,7 @@ function LoginPopUpModal({ loginHandle, forgotPassword }) {
       <ShoppingCartIcon
         onClick={() => setOpen(true)}
         fontSize="large"
-        htmlColor="502314"
+        htmlColor="#533d35"
       ></ShoppingCartIcon>
 
       <Modal open={open} onClose={() => setOpen(false)} center>

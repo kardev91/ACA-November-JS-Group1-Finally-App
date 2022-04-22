@@ -5,7 +5,8 @@ import Pizza from "./components/Pizza";
 import Burger from "./components/Burger";
 import Barbecue from "./components/Barbecue";
 import Drink from "./components/Drink";
-import Sweet from "./components/Sweet";
+import Dessert from "./components/Dessert";
+import Search from "./components/Search"
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { AuthContext } from "./contexts/AuthContext";
 import { ProductContext } from "./contexts/ProductContext";
@@ -48,7 +49,8 @@ function App() {
                 <Route path="/burgers" exact component={Burger} />
                 <Route path="/barbecue" exact component={Barbecue} />
                 <Route path="/drinks" exact component={Drink} />
-                <Route path="/sweets" exact component={Sweet} />
+                <Route path="/dessert" exact component={Dessert} />
+                <Route path="/search" exact component={Search} />
               </Route>
             </SearchInputValueContext.Provider>
           </ProductContext.Provider>

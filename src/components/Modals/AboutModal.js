@@ -13,7 +13,7 @@ export default function AboutModal(){
     );
     return (
         <>
-            <button className="item1" onClick={() => setOpen(true)}>
+            <button onClick={() => setOpen(true)}>
                 About us
             </button>
             <Modal open={open} onClose={() => setOpen(false)} center>
