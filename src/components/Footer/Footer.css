@@ -1,169 +1,54 @@
-a {
-    color: inherit;
-}
-.item1 {
-    border: none;
-    background-color: inherit;
-    color: #e4e9ea;
-    padding-left: 10px;
-    font-size: 5px;
+.information {
     display: flex;
     justify-content: right;
     align-items: center;
+    color: red;
+    border-bottom: 0.5px solid #f5ebdc;
 }
-.item1:hover {
-    text-decoration: none;
-    color: #48976a;
+.information button{
+    border: none;
+    width: 200px;
+    height: 40px;
+    background-color: #533d35;
+    font-size: 25px;
+    color: #f5ebdc;
+}
+.information button:hover {
     cursor: pointer;
 }
-.item1:focus {
+.information:hover {
+    text-decoration: none;
+    color: red;
+    cursor: pointer;
+}
+.information:focus {
     outline: 0;
 }
 
-.item2 {
-    background: rgba(49, 49, 54, 0.993);
-    color: rgb(190, 190, 190);
-    margin: 1px;
+.copyright {
+    color: #f5ebdc;
     font-size: 15px;
+    opacity: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.item4 {
-    font-size: 20px;
-    background: #25252b;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.item4:hover {
-    background-color: #4267b2;
-    transition: 0.4s;
-}
-.item5 {
-    font-size: 20px;
-    background: #202025;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.item5:hover {
-    background-color: #da0e0e;
-    transition: 0.4s;
-}
-
-.footer{
-    bottom: 0;
-    width: 100%;
-}
-
-.footer-container {
-    color: aliceblue;
-    text-align: center;
-    background-color: rgba(49, 49, 54, 0.993);
-    font-size: 10px;
-    width: 100%;
-    height: 5rem;
-    display: grid;
-    grid-template-columns: 3fr 6fr 1fr 1fr 1fr;
-}
-
-.payment-method {
-    color: aliceblue;
-    text-align: right;
-    background-color: rgba(49, 49, 54, 0.993);
-    /*width: 100%;*/
-    border: none;
-    padding-right: 25px;
-    font-size: 47px;
-    justify-content: right;
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-    .item1 {
-        font-size: 12px;
-        padding-left: 3px;
-    }
-    .item2 {
-        font-size: 7px;
-    }
-    .item3,
-    .item4,
-    .item5 {
-        font-size: 12px;
-    }
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-    .item1 {
-        font-size: 14px;
-        padding-left: 5px;
-    }
-    .item2 {
-        font-size: 9px;
-    }
-    .item3,
-    .item4,
-    .item5 {
-        font-size: 14px;
-    }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-    .item1 {
-        font-size: 16px;
-        padding-left: 6px;
-    }
-    .item2 {
-        font-size: 11px;
-    }
-    .item3,
-    .item4,
-    .item5 {
-        font-size: 16px;
-    }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    .item1 {
-        font-size: 18px;
-        padding-left: 8px;
-    }
-    .item2 {
-        font-size: 13px;
-    }
-    .item3,
-    .item4,
-    .item5 {
-        font-size: 18px;
-    }
-}
-
-.logo{
-    background-size: 250px;
-    width:100px;
-    height: 70px;
-    margin-right: 10px;
     margin-top: 20px;
 }
 
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-    .item1 {
-        font-size: 13px;
-        padding-left: 10px;
-    }
-    .item2 {
-        font-size: 15px;
-    }
-    .item3,
-    .item4,
-    .item5 {
-        font-size: 20px;
-    }
+.footer{
+    /* bottom: 0; */
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #533d35;
+}
+
+.paymentMethod {
+    color: #f5ebdc;
+    font-size: 30px;
+    margin-top: 30px;
 }

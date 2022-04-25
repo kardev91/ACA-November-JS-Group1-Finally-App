@@ -12,7 +12,7 @@ export default function NewsModal(){
     );
     return (
         <>
-            <button className="item1" onClick={() => setOpen(true)}>
+            <button onClick={() => setOpen(true)}>
                 News
             </button>
             <Modal open={open} onClose={() => setOpen(false)} center>

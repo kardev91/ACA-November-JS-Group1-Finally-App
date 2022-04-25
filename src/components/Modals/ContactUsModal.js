@@ -12,7 +12,7 @@ export default function ContactUsModal(){
     );
     return (
         <>
-            <button className="item1" onClick={() => setOpen(true)}>
+            <button onClick={() => setOpen(true)}>
                 Contact Us
             </button>
             <Modal open={open} onClose={() => setOpen(false)} center>

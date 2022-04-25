@@ -3,9 +3,11 @@
     width: 100%;
     height: 80px;
     display: flex;
+    position: fixed;
     justify-content: center;
     align-items: center;
-    border-bottom: 0.5px solid #502314;
+    border-bottom: 0.5px solid #533d35;
+    z-index: 10;
 }
 
 .menu-bars {
@@ -13,7 +15,7 @@
 }
 
 .menu-bars svg{
-    color: #502314;
+    color: #533d35;
     width: 40px;
     height: 40px;
 } 
@@ -29,7 +31,7 @@
     left: -100%;
     transition: 850ms;
     z-index: 9;
-    border-right: 0.5px solid #502314;
+    border-right: 0.5px solid #533d35;
 
 }
 
@@ -61,7 +63,7 @@ span {
 }
 
 .headerSearch {
-    width: 460px;
+    width: 30%;
     height: 50px;
     display: flex;
     justify-content: left;
@@ -69,9 +71,9 @@ span {
     position: relative;
 }
 .headerLogo {
-    width: 90px;
+    width: 30%;
     height: 70px;
-    margin: 0 100px;
+    /* margin: 0 100px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,7 +84,7 @@ span {
 }
 
 .headerControls {
-    width: 500px;
+    width: 30%;
     height: 50px;
     display: flex;
     justify-content: flex-end;
@@ -96,9 +98,9 @@ span {
     margin: 0 10px;
     cursor: pointer;
     background: none;
-    border: 2px solid #502314;
+    border: 2px solid #533d35;
     font-size: 15px;
-    color: #502314;
+    color: #533d35;
     font-weight: bold;
 }
 
@@ -106,7 +108,7 @@ span {
     width: 260px;
     height: 30px;
     border-radius: 30px;
-    border: 2px solid #502314;
+    border: 2px solid #533d35;
     margin-left: 20px;
     outline: none;
     padding-left: 40px;
@@ -114,7 +116,7 @@ span {
 
 .headerSearchIcon{
     position: absolute;
-    left: 30px;
+    left: 70px;
     top: 13px;
     cursor: pointer;
 }
