@@ -23,11 +23,20 @@ import { SearchInputValueContext } from "./contexts/SearchInputValueContext";
 function App() {
   const [productList, setProductList] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState('')
+  const [cartData, setCartData] = useState([])
 
   useEffect(
     () =>
       onSnapshot(collection(firestore, "product_table"), (snapshot) =>
         setProductList(snapshot.docs.map((doc) => doc.data()))
+      ),
+    []
+  );
+
+  useEffect(
+    () =>
+      onSnapshot(collection(firestore, "cart"), (snapshot) =>
+        setCartData(snapshot.docs.map((doc) => doc.data()))
       ),
     []
   );
@@ -43,7 +52,7 @@ function App() {
                 <Route path="/sign-in" component={Auth} />
                 <Route path="/sign-up" component={SignUp} />
                 <Route path="/reset-password" component={RessetPassword} />
-                <Route path="/cart" component={Cart} />
+                <Route path="/cart"><Cart data={cartData}/></Route>
                 <Route path="/salads" exact component={Salad} />
                 <Route path="/pizza" exact component={Pizza} />
                 <Route path="/burgers" exact component={Burger} />
