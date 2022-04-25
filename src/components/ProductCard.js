@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
+import {doc, setDoc} from 'firebase/firestore'
+import {firestore} from '../configurations/firebase'
 
 const useStyles = makeStyles({
   wrapper: {
@@ -75,12 +77,21 @@ export default function ProductCard({ product }) {
   const classes = useStyles();
   const [count, setCount] = useState(1);
   const [desabledButton, setDesabledButton] = useState(true);
+  
 
   useEffect(() => {
     if (count === 1) {
       setDesabledButton(true);
     }
   }, [count]);
+
+  
+  const addProduct = (item) => {
+    setDoc(doc(firestore, 'cart', item.id), {
+      ...item,
+      count: count
+    })
+  }
 
   const countEncreaser = () => {
     setCount(count + 1);
@@ -114,7 +125,7 @@ export default function ProductCard({ product }) {
           +
         </button>
       </div>
-      <button className={classes.orderButton}>Add</button>
+      <button className={classes.orderButton} onClick={() => addProduct(product)}>Add</button>
     </div>
   );
 }
