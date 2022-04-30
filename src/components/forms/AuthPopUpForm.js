@@ -26,7 +26,7 @@ export default function AuthPopForm({ loginHandle, forgotPassword }) {
   const loginUser = async () => {
     try {
       await loginHandle(email, password);
-      history.push("/cart");
+      history.push("/");
       setError("");
     } catch (error) {
       console.log(error.message)

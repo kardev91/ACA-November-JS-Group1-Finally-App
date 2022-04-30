@@ -3,15 +3,15 @@
     justify-content: right;
     align-items: center;
     color: red;
-    border-bottom: 0.5px solid #f5ebdc;
+    border-bottom: 0.5px solid white;
 }
 .information button{
     border: none;
-    width: 200px;
-    height: 40px;
-    background-color: #533d35;
-    font-size: 25px;
-    color: #f5ebdc;
+    width: 150px;
+    height: 30px;
+    background-color: #323232;
+    font-size: 15px;
+    color: white;
 }
 .information button:hover {
     cursor: pointer;
@@ -26,29 +26,27 @@
 }
 
 .copyright {
-    color: #f5ebdc;
-    font-size: 15px;
+    color: white;
+    font-size: 10px;
     opacity: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .footer{
-    /* bottom: 0; */
     width: 100%;
-    height: 300px;
+    height: 160px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #533d35;
+    background-color: #323232;
 }
 
 .paymentMethod {
-    color: #f5ebdc;
-    font-size: 30px;
-    margin-top: 30px;
+    color: white;
+    font-size: 25px;
 }

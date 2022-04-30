@@ -28,21 +28,21 @@ export default function Footer() {
           href="https://www.facebook.com/"
           rel="noopener"
         >
-          <Facebook style={{fontSize: '50px', margin: '20px'}} htmlColor="#f5ebdc"/>
+          <Facebook style={{fontSize: '35px', margin: '10px'}} htmlColor="white"/>
         </a>
         <a
           title={"Join us in Instagram"}
           href="https://www.instagram.com/"
           rel="noopener"
         >
-          <InstagramIcon style={{fontSize: '50px', margin: '20px'}} htmlColor="#f5ebdc"/>
+          <InstagramIcon style={{fontSize: '35px', margin: '10px'}} htmlColor="white"/>
         </a>
         <a
           title={"Join us in Youtube"}
           href="https://www.youtube.com/"
           rel="noopener"
         >
-          <YouTubeIcon style={{fontSize: '50px', margin: '20px'}} htmlColor="#f5ebdc"/>
+          <YouTubeIcon style={{fontSize: '35px', margin: '10px'}} htmlColor="white"/>
         </a>
       </div>
       <div className="paymentMethod">

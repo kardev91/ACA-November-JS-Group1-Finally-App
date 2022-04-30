@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import CloseIcon from "@material-ui/icons/Close";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { SIDE_BAR_DATA } from "../../constant/SiderBarData";
@@ -32,6 +31,7 @@ function NavigationBar() {
 
   const logout = async () => {
     await signOut(auth);
+    setUser(null)
     localStorage.clear();
   };
 
@@ -64,7 +64,7 @@ function NavigationBar() {
           </Link>
           <label>
             <Link to="search">
-              <SearchIcon onClick={searchButton} className="headerSearchIcon" />
+              <SearchIcon onClick={searchButton} className="headerSearchIcon" htmlColor="#323232"/>
             </Link>
             <input
               value={inputValue}
@@ -89,7 +89,6 @@ function NavigationBar() {
         <div className="headerControls">
           {!user ? (
             <>
-              {/* <AccountCircleIcon htmlColor="#533d35" fontSize="medium" /> */}
               <Link to="sign-in">
                 <button className="headerControlsButton">Sign In</button>
               </Link>
@@ -99,7 +98,7 @@ function NavigationBar() {
             </>
           ) : (
             <>
-              <AccountCircleIcon htmlColor="#533d35" fontSize="large" />
+              <AccountCircleIcon htmlColor="#323232" fontSize="large" />
               {user.email}
               <button onClick={logout} className="headerControlsButton">
                 Log Out
@@ -109,14 +108,14 @@ function NavigationBar() {
 
           {!user ? (
             <>
-              <LoginPopUpModal loginHandle={UserLogin} />
+              <LoginPopUpModal loginHandle={UserLogin}/>
             </>
           ) : (
             <>
               <Link to="cart">
                 <ShoppingCartIcon
                   fontSize="large"
-                  htmlColor="#533d35"
+                  htmlColor="#323232"
                 ></ShoppingCartIcon>
               </Link>
             </>
@@ -125,11 +124,7 @@ function NavigationBar() {
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
-          <li className="navbar-toggle">
-            <Link to="#" className="menu-bars">
-              <CloseIcon className={"icon"} titleAccess={"Close menu"} />
-            </Link>
-          </li>
+          
           {SIDE_BAR_DATA.map((item, index) => {
             return <ListItem key={item.title} item={item} index={index} />;
           })}
