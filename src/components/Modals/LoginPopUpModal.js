@@ -4,16 +4,18 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import AuthPopForm from "../forms/AuthPopUpForm";
 import { UserLogin } from "../../helper/UserAuth";
 
-function LoginPopUpModal({ loginHandle, forgotPassword }) {
+function LoginPopUpModal({ loginHandle, forgotPassword}) {
   const [open, setOpen] = React.useState(false);
 
   return (
     <>
-      <ShoppingCartIcon
-        onClick={() => setOpen(true)}
-        fontSize="large"
-        htmlColor="#533d35"
-      ></ShoppingCartIcon>
+      <div>
+        <ShoppingCartIcon
+          onClick={() => setOpen(true)}
+          fontSize="large"
+          htmlColor="#323232"
+        ></ShoppingCartIcon>
+      </div>
 
       <Modal open={open} onClose={() => setOpen(false)} center>
         <AuthPopForm loginHandle={UserLogin} />

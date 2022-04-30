@@ -12,6 +12,8 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     flexWrap: "wrap",
+    marginTop: '30px',
+    marginBottom: '80px'
   },
 });
 
