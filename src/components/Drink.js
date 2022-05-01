@@ -52,7 +52,7 @@ export default function Drink() {
       <div className={classes.wrapper}>
         {productList.map((item) => {
           if (item.type === "drink") {
-            return <ProductCard product={item} />;
+            return <ProductCard key={item.id} product={item} />;
           }
           return null;
         })}

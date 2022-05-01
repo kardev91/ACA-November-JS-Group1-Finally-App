@@ -15,15 +15,44 @@ import { SearchInputValueContext } from "../../contexts/SearchInputValueContext"
 import LoginPopUpModal from "../Modals/LoginPopUpModal";
 import { UserLogin } from "../../helper/UserAuth";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { makeStyles } from "@material-ui/core/styles";
+import Popper from "@material-ui/core/Popper";
+import Paper from "@material-ui/core/Paper";
+import UpdateProfile from "../UpdateProfile";
+import { Grow, MenuItem, MenuList } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  typography: {
+    padding: theme.spacing(2),
+  },
+  root: {
+    display: "flex",
+  },
+  paper: {
+    marginRight: theme.spacing(2),
+  },
+  menu: {
+    position: "fixed",
+    top: 57,
+    right: 285,
+  },
+  menuHeader: {
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingRight: 12,
+  },
+}));
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
   const [user, setUser] = useState(null);
   const [inputValue, setInputValue] = useState("");
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
   const searchValueData = useContext(SearchInputValueContext);
+  const classes = useStyles();
   const [searchValue, setSearchValue] = searchValueData;
   let history = useHistory();
-
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
@@ -50,6 +79,11 @@ function NavigationBar() {
       history.push("/search");
     }
   };
+
+  const updatePopUp = () => {
+    setOpenMenu(!openMenu);
+    setOpenUpdateModal(true);
+  }
 
   return (
     <div>
@@ -89,7 +123,6 @@ function NavigationBar() {
         <div className="headerControls">
           {!user ? (
             <>
-              {/* <AccountCircleIcon htmlColor="#533d35" fontSize="medium" /> */}
               <Link to="sign-in">
                 <button className="headerControlsButton">Sign In</button>
               </Link>
@@ -99,13 +132,55 @@ function NavigationBar() {
             </>
           ) : (
             <>
-              <AccountCircleIcon htmlColor="#533d35" fontSize="large" />
+              <div onClick={() => setOpenMenu(!openMenu)}>
+                <AccountCircleIcon
+                  htmlColor="#533d35"
+                  fontSize="large"
+                  style={{ cursor: "pointer" }}
+                />
+                <div className={classes.root}>
+                  <Popper
+                    open={openMenu}
+                    role={undefined}
+                    transition
+                    disablePortal
+                  >
+                    {({ TransitionProps, placement }) => (
+                      <Grow
+                        {...TransitionProps}
+                        style={{
+                          transformOrigin:
+                            placement !== "bottom"
+                              ? "center top"
+                              : "center bottom",
+                        }}
+                      >
+                        <Paper className={classes.menu}>
+                          <MenuList>
+                            <MenuItem onClick={() => updatePopUp()}>
+                            Profile Settings
+                            </MenuItem>
+                          </MenuList>
+                        </Paper>
+                      </Grow>
+                    )}
+                  </Popper>
+                </div>
+              </div>
+
               {user.email}
               <button onClick={logout} className="headerControlsButton">
                 Log Out
               </button>
             </>
           )}
+
+          {!openMenu ? (
+            <UpdateProfile
+              modalOpen={openUpdateModal}
+           
+            />
+          ) : null}
 
           {!user ? (
             <>
