@@ -17,7 +17,7 @@ import { useState } from "react";
 
 const theme = createTheme();
 
-export default function AuthPopForm({ loginHandle, forgotPassword }) {
+export default function AuthPopForm({ loginHandle, forgotPassword, pathName }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -26,7 +26,7 @@ export default function AuthPopForm({ loginHandle, forgotPassword }) {
   const loginUser = async () => {
     try {
       await loginHandle(email, password);
-      history.push("/");
+      history.push(pathName);
       setError("");
     } catch (error) {
       console.log(error.message)

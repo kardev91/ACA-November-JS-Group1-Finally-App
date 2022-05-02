@@ -3,9 +3,9 @@ import NavigationBar from "./NavigationBar/NavigationBar";
 import Footer from "./Footer/Footer";
 import CheckoutModal from "./Modals/CheckoutModal";
 import { makeStyles } from "@material-ui/core";
-import cartImg from "../cart.jpeg";
+import cartImg from "../cart.jpg";
 import ProductCardForCart from "./ProductCardForCart";
-import emptyBagImg from "../nosearch.png";
+import emptyBagImg from "../nofound.svg";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     width: "100%",
   },
   productWrapper: {
-    minHeight: "400px",
+    minHeight: "300px",
   },
   checkoutWrapper: {
     width: "1000px",
@@ -47,17 +47,17 @@ const useStyles = makeStyles({
     marginRight: "10px",
   },
   checkoutButton: {
-    width: '180px',
-    height: '30px',
-    borderRadius: '30px',
-    margin: '0 10px !important',
-    cursor: 'pointer',
-    background: 'none',
-    border: '2px solid #323232',
-    fontSize: '15px',
-    color: '#323232',
-    fontWeight: 'bold'
-  }
+    width: "180px",
+    height: "30px",
+    borderRadius: "30px",
+    margin: "0 10px !important",
+    cursor: "pointer",
+    background: "none",
+    border: "2px solid #323232",
+    fontSize: "15px",
+    color: "#323232",
+    fontWeight: "bold",
+  },
 });
 
 export default function Cart({ data }) {
@@ -75,8 +75,12 @@ export default function Cart({ data }) {
           <img className={classes.imageBanner} alt="a" src={cartImg} />
           {empty ? (
             <div>
-              <h1>Your bag is empty.</h1>
-              <img style={{ width: "400px", margin: '50px'}} src={emptyBagImg} />
+              <img
+                style={{ width: "200px", margin: "30px" }}
+                src={emptyBagImg}
+              />
+              <h2>Your bag is empty.</h2>
+              <p>Please add something, to make the order.</p>
             </div>
           ) : (
             <>
@@ -91,10 +95,12 @@ export default function Cart({ data }) {
                   Total price <b>{totalPrice} AMD</b>
                 </p>
                 <div>
-                <Link to='/'>
-                  <button className={classes.checkoutButton}>Back to Homepage</button>
-                </Link>
-                <CheckoutModal />
+                  <Link to="/">
+                    <button className={classes.checkoutButton}>
+                      CONTINUE SHOPPING
+                    </button>
+                  </Link>
+                  <CheckoutModal />
                 </div>
               </div>
             </>

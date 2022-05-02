@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
@@ -8,12 +8,13 @@ import "./NavigationBar.css";
 import ListItem from "../Shared/ListItem/ListItem";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../configurations/firebase";
-import logo from "../../logo.png";
+import logo from "../../logo1.png";
 import SearchIcon from "@material-ui/icons/Search";
 import { SearchInputValueContext } from "../../contexts/SearchInputValueContext";
 import LoginPopUpModal from "../Modals/LoginPopUpModal";
 import { UserLogin } from "../../helper/UserAuth";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { CartDataContext } from "../../contexts/CartDataContext";
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
@@ -21,17 +22,23 @@ function NavigationBar() {
   const [inputValue, setInputValue] = useState("");
   const searchValueData = useContext(SearchInputValueContext);
   const [searchValue, setSearchValue] = searchValueData;
+  const cartData = useContext(CartDataContext);
+  const [cartCount, setCartCount] = useState(cartData.length);
   let history = useHistory();
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
 
+  useEffect(() => {
+    setCartCount(cartData.length);
+  }, [cartData]);
+
   const showSidebar = () => setSidebar(!sidebar);
 
   const logout = async () => {
     await signOut(auth);
-    setUser(null)
+    setUser(null);
     localStorage.clear();
   };
 
@@ -64,7 +71,11 @@ function NavigationBar() {
           </Link>
           <label>
             <Link to="search">
-              <SearchIcon onClick={searchButton} className="headerSearchIcon" htmlColor="#323232"/>
+              <SearchIcon
+                onClick={searchButton}
+                className="headerSearchIcon"
+                htmlColor="#323232"
+              />
             </Link>
             <input
               value={inputValue}
@@ -108,11 +119,12 @@ function NavigationBar() {
 
           {!user ? (
             <>
-              <LoginPopUpModal loginHandle={UserLogin}/>
+              <LoginPopUpModal loginHandle={UserLogin} />
             </>
           ) : (
             <>
               <Link to="cart">
+                {cartCount ? <p className="orderCount">{cartCount}</p> : null}
                 <ShoppingCartIcon
                   fontSize="large"
                   htmlColor="#323232"
@@ -124,7 +136,6 @@ function NavigationBar() {
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
-          
           {SIDE_BAR_DATA.map((item, index) => {
             return <ListItem key={item.title} item={item} index={index} />;
           })}

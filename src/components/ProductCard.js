@@ -6,8 +6,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../configurations/firebase";
 import { UserLogin } from "../helper/UserAuth";
 import LoginPopUpModalForAdd from "./Modals/LoginPopUpModalForAdd";
-
-
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import ProductInfoModal from "./Modals/ProductInfoModal";
 
 const useStyles = makeStyles({
   wrapper: {
@@ -29,6 +29,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    position: 'relative'
   },
   image: {
     width: "100%",
@@ -91,10 +92,17 @@ const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: '#68a346',
     }
+  },
+  info: {
+    display: 'flex',
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    color: 'white',
   }
 });
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, pathName}) {
   const classes = useStyles();
   const [count, setCount] = useState(1);
   const [user, setUser] = useState(null);
@@ -111,12 +119,11 @@ export default function ProductCard({ product }) {
   });
   
   const addProduct = (e,item) => {
-    
     e.target.innerHTML = 'Added!'
     e.target.classList.add(classes.added)
     setDoc(doc(firestore, 'cart', item.id), {
       ...item,
-      count: count
+      count: count,
     })
     setTimeout(()=> {
       e.target.innerHTML = 'Add'
@@ -139,6 +146,8 @@ export default function ProductCard({ product }) {
     <div className={classes.wrapper}>
       <div className={classes.imageWrapper}>
         <img className={classes.image} src={product.image} />
+        
+          <ProductInfoModal product={product}/>
       </div>
       <p className={classes.name}>{product.name}</p>
       <p className={classes.price}>{product.price} AMD</p>
@@ -158,7 +167,7 @@ export default function ProductCard({ product }) {
         </button>
       </div>
       {!user ? (
-        <LoginPopUpModalForAdd />
+        <LoginPopUpModalForAdd pathName={pathName}/>
       ) : (
         <button className={classes.orderButton} onClick={(e) => addProduct(e,product)}>Add</button>
       )}

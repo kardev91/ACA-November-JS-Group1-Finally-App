@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
   wrapper: {
     width: "100%",
-    minHeight: '600px',
+    minHeight: '500px',
     display: "flex",
     justifyContent: "center",
     flexWrap: "wrap",
@@ -26,11 +26,11 @@ const useStyles = makeStyles({
   },
   productName: {
     width: '80%',
-    borderBottom: '0.5px solid #502314',
+    borderBottom: '0.5px solid #323232',
     borderOpacity: '10%',
     marginBottom: '20px',
     '& p': {
-      color: '#533d35',
+      color: '#323232',
       fontSize: '50px',
       fontWeight: 'bold',
       margin: '20px 0'
@@ -52,7 +52,7 @@ export default function Barbecue() {
       <div className={classes.wrapper}>
         {productList.map((item) => {
           if (item.type === "barbecue") {
-            return <ProductCard product={item} />;
+            return <ProductCard product={item} pathName="barbecue" />;
           }
           return null;
         })}
