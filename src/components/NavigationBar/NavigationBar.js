@@ -13,8 +13,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import { SearchInputValueContext } from "../../contexts/SearchInputValueContext";
 import LoginPopUpModal from "../Modals/LoginPopUpModal";
 import { UserLogin } from "../../helper/UserAuth";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { CartDataContext } from "../../contexts/CartDataContext";
+import UpdatePassword from "../UpdatePassword";
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
@@ -39,6 +39,7 @@ function NavigationBar() {
   const logout = async () => {
     await signOut(auth);
     setUser(null);
+    history.push("/");
     localStorage.clear();
   };
 
@@ -109,7 +110,7 @@ function NavigationBar() {
             </>
           ) : (
             <>
-              <AccountCircleIcon htmlColor="#323232" fontSize="large" />
+              <UpdatePassword />
               {user.email}
               <button onClick={logout} className="headerControlsButton">
                 Log Out

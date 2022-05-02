@@ -11,19 +11,30 @@ import {
   TextField,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-
+import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 
 const theme = createTheme();
+const useStyles = makeStyles({
+  root: {
+    "&$focused $notchedOutline": {
+      borderColor: "black",
+      label:'black'
+    },
+  },
+  focused: {},
+  notchedOutline: {},
+});
 
 export default function AuthForm({ loginHandle, forgotPassword }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const history = useHistory();
+  const classes = useStyles();
 
   const loginUser = async () => {
     try {
@@ -31,13 +42,10 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
       history.push("/");
       setError("");
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
       if (error.message === "Firebase: Error (auth/invalid-email).") {
         setError("Please enter valid email");
-      } else if (
-        error.message ===
-        "Firebase: Error (auth/wrong-password)."
-      ) {
+      } else if (error.message === "Firebase: Error (auth/wrong-password).") {
         setError("Your password is wrong");
       }
     }
@@ -53,7 +61,8 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
           sm={4}
           md={7}
           style={{
-            backgroundImage: "url(https://img.traveltriangle.com/blog/wp-content/uploads/2018/12/cover-for-street-food-in-sydney.jpg)",
+            backgroundImage:
+              "url(https://img.traveltriangle.com/blog/wp-content/uploads/2018/12/cover-for-street-food-in-sydney.jpg)",
             backgroundRepeat: "no-repeat",
           }}
         />
@@ -93,6 +102,14 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
                 autoFocus
                 variant="outlined"
                 onChange={(event) => setEmail(event.target.value)}
+                InputProps={{
+                  classes: {
+                    root: classes.root,
+                    focused: classes.focused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+                InputLabelProps={{style : {color : 'black'} }}
               />
               <TextField
                 margin="normal"
@@ -104,6 +121,14 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
                 id="password"
                 autoComplete="current-password"
                 variant="outlined"
+                InputProps={{
+                  classes: {
+                    root: classes.root,
+                    focused: classes.focused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+                InputLabelProps={{style : {color : 'black'} }}
                 onChange={(event) => setPassword(event.target.value)}
               />
               <FormControlLabel
