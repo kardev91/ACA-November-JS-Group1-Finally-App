@@ -3,7 +3,7 @@ import NavigationBar from "./NavigationBar/NavigationBar";
 import React, { useContext } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 import ProductCard from "./ProductCard";
-import homepagePhoto from "../homepagePhoto.jpg";
+import homepagePhoto from "../homepagePhoto1.jpg";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     flexWrap: "wrap",
-    marginTop: '30px',
+    marginTop: '10px',
     marginBottom: '80px'
   },
 });

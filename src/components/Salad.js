@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
   wrapper: {
     width: "100%",
-    minHeight: '600px',
+    minHeight: '500px',
     display: "flex",
     justifyContent: "center",
     flexWrap: "wrap",
@@ -26,11 +26,11 @@ const useStyles = makeStyles({
   },
   productName: {
     width: '80%',
-    borderBottom: '0.5px solid #502314',
+    borderBottom: '0.5px solid #323232',
     borderOpacity: '10%',
     marginBottom: '20px',
     '& p': {
-      color: '#533d35',
+      color: '#323232',
       fontSize: '50px',
       fontWeight: 'bold',
       margin: '20px 0'
@@ -47,12 +47,12 @@ export default function Salad() {
       <NavigationBar />
       <img src={saladImg} className={classes.image} />
       <div className={classes.productName}>
-        <p>Salad</p>
+        <p>Salads</p>
       </div>
       <div className={classes.wrapper}>
         {productList.map((item) => {
           if (item.type === "salad") {
-            return <ProductCard product={item} />;
+            return <ProductCard product={item} pathName="salads" />;
           }
           return null;
         })}

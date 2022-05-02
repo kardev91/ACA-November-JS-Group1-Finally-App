@@ -70,8 +70,8 @@ span {
     align-items: center;
 }
 .headerLogo img{
-    width: 90px;
-    height: 70px;
+    width: 160px;
+    /* height: 70px; */
 }
 
 .headerControls {
@@ -80,6 +80,7 @@ span {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    position: relative;
 }
 
 .headerControlsButton {
@@ -110,4 +111,20 @@ span {
     left: 70px;
     top: 13px;
     cursor: pointer;
+}
+
+.orderCount {
+    width: 17px;
+    height: 17px;
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    background-color: red;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    color: white;
 }

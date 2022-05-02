@@ -53,7 +53,7 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
           sm={4}
           md={7}
           style={{
-            backgroundImage: "url(https://source.unsplash.com/random)",
+            backgroundImage: "url(https://img.traveltriangle.com/blog/wp-content/uploads/2018/12/cover-for-street-food-in-sydney.jpg)",
             backgroundRepeat: "no-repeat",
           }}
         />

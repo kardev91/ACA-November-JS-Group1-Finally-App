@@ -12,15 +12,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px auto",
     marginRight: 15,
   },
-  btn: {
-    backgroundColor: "#04AA6D",
-    margin: 10,
-    borderRadius: 20,
-    cursor: "pointer",
-    textAlign: 'center'
-  },
-  checkoutButton: {
-    width: '120px',
+  button: {
+    width: '150px',
     height: '30px',
     borderRadius: '30px',
     margin: '0 10px',
@@ -29,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #323232',
     fontSize: '15px',
     color: '#323232',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    '& span': {
+      margin: 0
+    }
   },
   container: {
     backgroundColor: "#fafafa",
@@ -86,11 +82,11 @@ export default function CheckoutModal() {
 
   return (
     <>
-      <button onClick={() => handleOpenCheckout()} variant="outlined" className={classes.checkoutButton}>
-        Checkout
+      <button onClick={() => handleOpenCheckout()} variant="outlined" className={classes.button}>
+        CHECKOUT
       </button>
 
-      <Modal
+      <Modal //need to be deleted
         open={openConfirmation}
         onClose={() => setOpenConfirmation(false)}
         center
@@ -163,16 +159,14 @@ export default function CheckoutModal() {
           </Grid>
           <div className={classes.buttonsWrapper}>
             <Button
-              className={classes.btn}
+              className={classes.button}
               onClick={() => handleOrderCancel()}
-              variant="outlined"
             >
               BACK
             </Button>
             <Button
-              className={classes.btn}
+              className={classes.button}
               onClick={() => handleOrderConfirmation()}
-              variant="outlined"
             >
               
               PLACE ORDER

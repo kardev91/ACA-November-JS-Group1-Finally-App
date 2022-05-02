@@ -3,7 +3,7 @@ import NavigationBar from "./NavigationBar/NavigationBar";
 import React, { useContext } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 import ProductCard from "./ProductCard";
-import homepagePhoto from "../homepagePhoto.jpg";
+import homepagePhoto from "../homepagePhoto1.jpg";
 import { SearchInputValueContext } from "../contexts/SearchInputValueContext";
 import { makeStyles } from "@material-ui/core";
 import nofound from "../nofound.svg";
@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     flexWrap: "wrap",
+    marginTop: '10px'
   },
   sorryText: {
     fontSize: "20px",
@@ -41,7 +42,7 @@ export default function Homee() {
               value === product.name.toLowerCase()
             ) {
               count++;
-              return <ProductCard key={product.id} product={product} />;
+              return <ProductCard key={product.id} product={product} pathName='search'/>;
             }
             if (index === productList.length - 1 && count === 0) {
               return (
@@ -55,7 +56,7 @@ export default function Homee() {
             }
             return null;
           }
-          return <ProductCard key={product.id} product={product} />;
+          return <ProductCard key={product.id} product={product} pathName='search'/>;
         })}
       </div>
       <Footer />

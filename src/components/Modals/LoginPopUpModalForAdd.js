@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 })
 
-function LoginPopUpModalForAdd({ loginHandle, forgotPassword}) {
+function LoginPopUpModalForAdd({ loginHandle, forgotPassword, pathName}) {
   const classes = useStyles()
   const [open, setOpen] = useState(false);
 
@@ -35,7 +35,7 @@ function LoginPopUpModalForAdd({ loginHandle, forgotPassword}) {
       </div>
 
       <Modal open={open} onClose={() => setOpen(false)} center>
-        <AuthPopForm loginHandle={UserLogin} />
+        <AuthPopForm loginHandle={UserLogin} pathName={pathName}/>
       </Modal>
     </>
   );
