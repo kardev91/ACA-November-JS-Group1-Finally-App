@@ -12,7 +12,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 const useStyles = makeStyles((theme) => ({
   box: {
     width: 360,
-    height: 310,
+    height: 400,
   },
 
   img: {
@@ -22,14 +22,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50%",
     padding: 3,
     backgroundColor: "white",
-    margin: "20px 30%",
+    margin: "6px 30%",
   },
 
   input: {
     display: "block",
     boxSizing: "border-box",
     color: "black",
-    marginBottom: 30,
+    marginBottom: 20,
     padding: 10,
     width: 220,
     height: 32,
@@ -41,12 +41,20 @@ const useStyles = makeStyles((theme) => ({
     background: "none",
   },
 
+  inputLabel: {
+    marginBottom: 5,
+    textAlign: "left",
+    marginLeft: 70,
+    color: "black",
+    fontWeight: "bold",
+  },
+
   button: {
     border: "1px solid black",
     borderRadius: 7,
     color: "black",
-    height: 30,
-    width: 100,
+    height: 32,
+    width: 220,
     left: 0,
     margin: 0,
     background: "white",
@@ -67,8 +75,14 @@ const useStyles = makeStyles((theme) => ({
   },
 
   alertStyle: {
-    marginTop: 45, 
-    width: 360
+    marginTop: 22,
+    width: 324,
+  },
+
+  headerText: {
+      textAlign:'center',
+      fontSize:18,
+      fontWeight: 'bold'
   }
 }));
 
@@ -76,30 +90,43 @@ export default function UpdatePassword() {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
   const [failError, setFailError] = useState("");
+  const [oldPasswordError, setOldPasswordError] = useState("");
   const [success, setSuccess] = useState("");
   const [password, setPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const classes = useStyles();
 
   const onPasswordInputChange = (event) => {
     setPassword(event.target.value);
   };
 
+  const onOldPasswordInputChange = (event) => {
+    setOldPassword(event.target.value);
+  };
 
   const updateUserPassword = () => {
     if (password === "") {
       setError(`Please fill password field`);
+    } else if (oldPassword === "") {
+      setOldPasswordError(`Please fill old password field`);
     } else {
       updatePassword(auth.currentUser, password)
         .then(() => {
           setSuccess(`Your password is updated`);
-          setTimeout(function() {setOpen(false);setSuccess("")}, 2000)
+          setOldPasswordError("");
+          setTimeout(function () {
+            setOpen(false);
+            setSuccess("");
+          }, 2000);
         })
         .catch((error) => {
           setFailError(`Your paswword dont updated please try again`);
-          setTimeout(function() {setOpen(false);setFailError("")}, 2000)
+          setTimeout(function () {
+            setOpen(false);
+            setFailError("");
+          }, 2000);
         });
     }
-   
   };
 
   return (
@@ -112,11 +139,12 @@ export default function UpdatePassword() {
         />
       </div>
       <Modal open={open} onClose={() => setOpen(false)} center>
+          <p className={classes.headerText}>Update Password</p>
         {error ? (
           <Alert
             severity="error"
             variant="filled"
-           className={classes.alertStyle}
+            className={classes.alertStyle}
           >
             {error}
           </Alert>
@@ -130,8 +158,21 @@ export default function UpdatePassword() {
             {failError}
           </Alert>
         ) : null}
+        {oldPasswordError ? (
+          <Alert
+            severity="error"
+            variant="filled"
+            className={classes.alertStyle}
+          >
+            Please enter your old password
+          </Alert>
+        ) : null}
         {success && (
-          <Alert variant="filled" severity="success" className={classes.alertStyle}>
+          <Alert
+            variant="filled"
+            severity="success"
+            className={classes.alertStyle}
+          >
             {success}
           </Alert>
         )}
@@ -139,7 +180,14 @@ export default function UpdatePassword() {
           <center>
             <div className={classes.box}>
               <img className={classes.img} src={avatar} alt="avatar" />
-
+              <p className={classes.inputLabel}>Old Password</p>
+              <input
+                className={classes.input}
+                type="password"
+                placeholder="Password"
+                onChange={onOldPasswordInputChange}
+              />
+              <p className={classes.inputLabel}>New Password</p>
               <input
                 className={classes.input}
                 type="password"
@@ -152,7 +200,7 @@ export default function UpdatePassword() {
                 name="edit"
                 onClick={updateUserPassword}
               >
-                EDIT
+                UPDATE PASSWORD
               </button>
             </div>
           </center>
