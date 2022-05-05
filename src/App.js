@@ -11,15 +11,15 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { AuthContext } from "./contexts/AuthContext";
 import { ProductContext } from "./contexts/ProductContext";
 import { CartDataContext } from "./contexts/CartDataContext";
-import { auth } from "./configurations/firebase";
 import RessetPassword from "./components/forms/RessetPassword";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
 import Cart from "./components/Cart";
-import { firestore } from "./configurations/firebase";
-import { collection, onSnapshot } from "firebase/firestore";
 import { SearchInputValueContext } from "./contexts/SearchInputValueContext";
+import { firestore, auth } from "./configurations/firebase";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const [productList, setProductList] = useState([]);
@@ -34,13 +34,20 @@ function App() {
     []
   );
 
-  useEffect(
-    () =>
-      onSnapshot(collection(firestore, "cart"), (snapshot) =>
-        setCartData(snapshot.docs.map((doc) => doc.data()))
-      ),
-    []
-  );
+  useEffect(() => {
+
+    onAuthStateChanged(auth, (currentUser) => {
+      if(currentUser){
+        const cartTableRef = query(
+          collection(firestore, "cart"),
+          where("userId", "==", currentUser.uid)
+        );
+        onSnapshot(cartTableRef, (querySnapshot) => {
+          setCartData(querySnapshot.docs.map((doc) => ({...doc.data(),id: doc.id})));
+        });
+      };
+    });
+  }, []);
 
   return (
     <div className="App">

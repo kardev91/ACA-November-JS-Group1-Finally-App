@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
-import { doc, setDoc, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { firestore } from "../configurations/firebase";
 
 const useStyles = makeStyles({
@@ -9,15 +9,15 @@ const useStyles = makeStyles({
     height: "150px",
     margin: "20px 0",
     backgroundColor: "white",
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.2)',
-    '&:hover': {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.2)",
+    "&:hover": {
       transition: "all ease 0.4s",
       transform: "translateY(-3px)",
-      boxShadow: '0px 10px 20px 2px rgba(0, 0, 0, 0.2)'
-    }
+      boxShadow: "0px 10px 20px 2px rgba(0, 0, 0, 0.2)",
+    },
   },
   imageWrapper: {
     width: "25%",
@@ -47,18 +47,18 @@ const useStyles = makeStyles({
     fontSize: "25px",
     "&:hover": {
       backgroundColor: "#ffc836",
-      color: 'white'
+      color: "white",
     },
   },
   name: {
     fontSize: "25px",
     margin: "0",
-    width: '180px'
+    width: "180px",
   },
   price: {
     fontSize: "20px",
     margin: "10px 0",
-    width: '160px'
+    width: "160px",
   },
   count: {
     width: "80px",
@@ -68,10 +68,10 @@ const useStyles = makeStyles({
     alignItems: "center",
     fontSize: "20px",
   },
-  totalPrice:{
+  totalPrice: {
     fontSize: "20px",
     margin: "10px 0",
-    width: '150px'
+    width: "150px",
   },
   deleteButton: {
     width: "100px",
@@ -81,72 +81,70 @@ const useStyles = makeStyles({
     backgroundColor: "rgb(239, 239, 239)",
     cursor: "pointer",
     fontSize: "15px",
-    marginRight: '10px',
+    marginRight: "10px",
     "&:hover": {
       backgroundColor: "#ff4747",
-      color: 'white'
+      color: "white",
     },
   },
 });
 
-export default function ProductCardForCart({product}) {
+export default function ProductCardForCart({ product }) {
   const classes = useStyles();
-  const [count, setCount] = useState(product.count);
-  const [desabledButton, setDesabledButton] = useState(false);
-  const [price, setPrice] = useState(product.price)
+  let   [count, setCount] = useState(product.count);
+  const [price, setPrice] = useState(product.price);
 
   useEffect(() => {
-    setPrice(count * product.price)
-    if (count === 1) {
-      setDesabledButton(true);
-    }
-    
-    setDoc(doc(firestore, 'cart', product.id), {
-        ...product,
-        count: count
-      })
-  }, [count, price, product, desabledButton]);
+    setPrice(count * product.price);
+  }, [count, price, product]);
+
+  const updateCartProduct = async (count, productId) => {
+    const updateProductCount = doc(firestore, "cart", productId);
+    await updateDoc(updateProductCount, {
+      count,
+    });
+  };
 
   const deleteProduct = (item) => {
-    deleteDoc(doc(firestore, 'cart', product.id))
-  }
-
-  const countEncreaser = () => {
-    setCount(count + 1);
-    if (count >= 1) {
-      setDesabledButton(false);
-    }
+    deleteDoc(doc(firestore, "cart", product.id));
   };
-  const countDecreaser = () => {
-    setCount(count - 1);
-  };
-
 
   return (
     <div className={classes.wrapper}>
       <div className={classes.imageWrapper}>
-        <img className={classes.image} alt='b' src={product.image} />
+        <img className={classes.image} alt={product.name} src={product.image} />
       </div>
-      <div><p className={classes.name}>{product.name}</p></div>
-      <div><p className={classes.price}>{product.price} AMD</p></div>
+      <div>
+        <p className={classes.name}>{product.name}</p>
+      </div>
+      <div>
+        <p className={classes.price}>{product.price} AMD</p>
+      </div>
       <div className={classes.productCount}>
         <button
-          onClick={countDecreaser}
+          onClick={() => (
+            setCount(--count), updateCartProduct(count, product.id)
+          )}
           className={classes.button}
-          disabled={desabledButton}
+          disabled={count > 1 ? false : true}
         >
           -
         </button>
         <div className={classes.count}>
           <p>{count}</p>
         </div>
-        <button onClick={countEncreaser} className={classes.button}>
+        <button
+          onClick={() => (
+            setCount(++count), updateCartProduct(count, product.id)
+          )}
+          className={classes.button}
+        >
           +
         </button>
       </div>
       <div>
-            <p className={classes.totalPrice}>{price} AMD</p>
-        </div>
+        <p className={classes.totalPrice}>{price} AMD</p>
+      </div>
       <button
         className={classes.deleteButton}
         onClick={() => deleteProduct(product)}
