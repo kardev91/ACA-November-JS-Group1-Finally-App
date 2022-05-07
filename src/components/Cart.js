@@ -101,7 +101,7 @@ export default function Cart({ data }) {
                       CONTINUE SHOPPING
                     </button>
                   </Link>
-                  <CheckoutModal />
+                  <CheckoutModal cartData={data}/>
                 </div>
               </div>
             </>

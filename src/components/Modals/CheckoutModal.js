@@ -5,16 +5,18 @@ import Button from "@material-ui/core/Button";
 import { Grid, TextField, Typography } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
-import orderConfirmation from '../../images/orderConfirmation.png'
+import orderConfirmation from "../../images/orderConfirmation.png";
+import { firestore, auth } from "../../configurations/firebase";
+import { writeBatch, doc } from "firebase/firestore";
 
 const useStyles = makeStyles((theme) => ({
   modalWrapper: {
-    width: '600px',
-    height: '300px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
+    width: "600px",
+    height: "300px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonsWrapper: {
     maxWidth: 345,
@@ -22,33 +24,33 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 15,
   },
   button: {
-    width: '150px',
-    height: '30px',
-    borderRadius: '30px',
-    margin: '0 10px',
-    cursor: 'pointer',
-    background: 'none',
-    border: '2px solid #323232',
-    fontSize: '15px',
-    color: '#323232',
-    fontWeight: 'bold',
-    '& span': {
-      margin: 0
-    }
+    width: "150px",
+    height: "30px",
+    borderRadius: "30px",
+    margin: "0 10px",
+    cursor: "pointer",
+    background: "none",
+    border: "2px solid #323232",
+    fontSize: "15px",
+    color: "#323232",
+    fontWeight: "bold",
+    "& span": {
+      margin: 0,
+    },
   },
   container: {
     backgroundColor: "#fafafa",
   },
   orderConfirmationImage: {
-    width: '200px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '0 auto'
-  }
+    width: "200px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 auto",
+  },
 }));
 
-export default function CheckoutModal() {
+export default function CheckoutModal({ cartData }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openConfirmation, setOpenConfirmation] = useState(false);
@@ -59,9 +61,14 @@ export default function CheckoutModal() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
 
-  const handleOrderConfirmation = () => {
-    if (firstName === "" || lastName === "" || city === "" || address === "" || phoneNumber === "") {
-      setError(`Please fill all fields`);
+  const handleOrderConfirmation = async () => {
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      city === "" ||
+      address === "" ||
+      phoneNumber === ""
+    ) {
     } else {
       setOpen(false);
       setOpenConfirmation(true);
@@ -98,17 +105,34 @@ export default function CheckoutModal() {
 
   return (
     <>
-      <button onClick={() => handleOpenCheckout()} variant="outlined" className={classes.button}>
+      <button
+        onClick={() => handleOpenCheckout()}
+        variant="outlined"
+        className={classes.button}
+      >
         CHECKOUT
       </button>
 
       <Modal
         open={openConfirmation}
-        onClose={() => setOpenConfirmation(false)}
+        onClose={() => {
+          setOpenConfirmation(false);
+          const batch = writeBatch(firestore);
+
+          cartData.forEach((cart) => {
+            batch.delete(doc(firestore, "cart", cart.id));
+          });
+          batch.commit();
+        }}
         center
       >
-        <div classNames={classes.modalWrapper}>
-          <img src={orderConfirmation} className={classes.orderConfirmationImage} alt='confImage'/>
+        <div className={classes.modalWrapper}>
+          {console.log("mtav")}
+          <img
+            src={orderConfirmation}
+            className={classes.orderConfirmationImage}
+            alt="confImage"
+          />
           <Typography variant="h5" gutterBottom>
             Thank you for your order.
           </Typography>
@@ -119,7 +143,7 @@ export default function CheckoutModal() {
       </Modal>
 
       <Modal
-        classNames={classes.container}
+        className={classes.container}
         open={open}
         onClose={() => setOpen(false)}
         center
@@ -127,7 +151,7 @@ export default function CheckoutModal() {
         <h2>Checkout</h2>
         <h4>Please fill out all fields</h4>
         {error ? (
-          <Alert severity="error" variant="filled" >
+          <Alert severity="error" variant="filled">
             {error}
           </Alert>
         ) : null}
@@ -185,7 +209,6 @@ export default function CheckoutModal() {
               className={classes.button}
               onClick={() => handleOrderConfirmation()}
             >
-              
               PLACE ORDER
             </Button>
           </div>
