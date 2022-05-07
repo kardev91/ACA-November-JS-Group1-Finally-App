@@ -3,7 +3,7 @@ import NavigationBar from "./NavigationBar/NavigationBar";
 import React, { useContext } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 import ProductCard from "./ProductCard";
-import homepagePhoto from "../homepagePhoto1.jpg";
+import homepagePhoto from "../images/homepagePhoto1.jpg";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -12,8 +12,13 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     flexWrap: "wrap",
-    marginTop: '10px',
-    marginBottom: '80px'
+    marginTop: "10px",
+    marginBottom: "80px",
+    maxWidth: "1500px",
+  },
+  image: {
+    width: "100%",
+    marginTop: "80px",
   },
 });
 
@@ -24,7 +29,7 @@ export default function Home() {
   return (
     <>
       <NavigationBar />
-      <img src={homepagePhoto} style={{ width: "100%" ,marginTop: '80px',}} />
+      <img src={homepagePhoto} alt="homepagePhoto" className={classes.image} />
       <div className={classes.wrapper}>
         {productList.map((item) => {
           return <ProductCard key={item.id} product={item} />;

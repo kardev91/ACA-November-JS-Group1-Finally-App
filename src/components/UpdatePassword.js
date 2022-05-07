@@ -6,7 +6,7 @@ import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import { updatePassword } from "firebase/auth";
 import { auth } from "../configurations/firebase";
-import avatar from "../avatar.png";
+import avatar from '../images/avatar.png'
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const useStyles = makeStyles((theme) => ({
