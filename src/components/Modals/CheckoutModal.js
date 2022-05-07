@@ -5,9 +5,9 @@ import Button from "@material-ui/core/Button";
 import { Grid, TextField, Typography } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
-import { firestore, auth } from "../../configurations/firebase";
+import { firestore } from "../../configurations/firebase";
 import { writeBatch, doc } from "firebase/firestore";
-import orderConfirmation from '../../images/orderConfirmation.png'
+import orderConfirmation from "../../images/orderConfirmation.png";
 
 const useStyles = makeStyles((theme) => ({
   modalWrapper: {
@@ -73,12 +73,6 @@ export default function CheckoutModal({ cartData }) {
     } else {
       setOpen(false);
       setOpenConfirmation(true);
-      const batch = writeBatch(firestore);
-
-      cartData.forEach((cart) => {
-        batch.delete(doc(firestore, "cart", cart.id));
-      });
-      await batch.commit();
     }
   };
 
@@ -134,7 +128,8 @@ export default function CheckoutModal({ cartData }) {
         center
       >
         <div className={classes.modalWrapper}>
-\          <img
+          \{" "}
+          <img
             src={orderConfirmation}
             className={classes.orderConfirmationImage}
             alt="confImage"
@@ -157,7 +152,11 @@ export default function CheckoutModal({ cartData }) {
         <h2>Checkout</h2>
         <h4>Please fill out all fields</h4>
         {error ? (
-          <Alert severity="error" variant="filled" style={{marginBottom: '10px'}}>
+          <Alert
+            severity="error"
+            variant="filled"
+            style={{ marginBottom: "10px" }}
+          >
             {error}
           </Alert>
         ) : null}
