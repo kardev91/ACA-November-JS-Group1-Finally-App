@@ -134,8 +134,7 @@ export default function CheckoutModal({ cartData }) {
         center
       >
         <div className={classes.modalWrapper}>
-          {console.log("mtav")}
-          <img
+\          <img
             src={orderConfirmation}
             className={classes.orderConfirmationImage}
             alt="confImage"
@@ -158,7 +157,7 @@ export default function CheckoutModal({ cartData }) {
         <h2>Checkout</h2>
         <h4>Please fill out all fields</h4>
         {error ? (
-          <Alert severity="error" variant="filled">
+          <Alert severity="error" variant="filled" style={{marginBottom: '10px'}}>
             {error}
           </Alert>
         ) : null}
