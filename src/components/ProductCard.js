@@ -32,7 +32,6 @@ const useStyles = makeStyles({
   },
   imageWrapper: {
     width: "100%",
-    height: "170px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

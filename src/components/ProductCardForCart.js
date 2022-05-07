@@ -31,7 +31,6 @@ const useStyles = makeStyles({
     height: "100%",
   },
   productCount: {
-    width: "25%",
     height: "50px",
     display: "flex",
     justifyContent: "center",

@@ -11,10 +11,12 @@ const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     justifyContent: "center",
+    alignItems: 'center',
     flexWrap: "wrap",
     marginTop: "10px",
     marginBottom: "80px",
     maxWidth: "1500px",
+    margin: 'auto'
   },
   image: {
     width: "100%",
