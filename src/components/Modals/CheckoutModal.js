@@ -5,9 +5,9 @@ import Button from "@material-ui/core/Button";
 import { Grid, TextField, Typography } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
-import orderConfirmation from "../../images/orderConfirmation.png";
 import { firestore, auth } from "../../configurations/firebase";
 import { writeBatch, doc } from "firebase/firestore";
+import orderConfirmation from '../../images/orderConfirmation.png'
 
 const useStyles = makeStyles((theme) => ({
   modalWrapper: {
@@ -69,9 +69,16 @@ export default function CheckoutModal({ cartData }) {
       address === "" ||
       phoneNumber === ""
     ) {
+      setError(`Please fill all fields`);
     } else {
       setOpen(false);
       setOpenConfirmation(true);
+      const batch = writeBatch(firestore);
+
+      cartData.forEach((cart) => {
+        batch.delete(doc(firestore, "cart", cart.id));
+      });
+      await batch.commit();
     }
   };
 
