@@ -31,7 +31,6 @@ const useStyles = makeStyles({
     height: "100%",
   },
   productCount: {
-    width: "25%",
     height: "50px",
     display: "flex",
     justifyContent: "center",
@@ -123,7 +122,8 @@ export default function ProductCardForCart({ product }) {
       <div className={classes.productCount}>
         <button
           onClick={() => (
-            setCount(--count), updateCartProduct(count, product.id)
+            setCount(--count),
+            updateCartProduct(count, product.id)
           )}
           className={classes.button}
           disabled={count > 1 ? false : true}

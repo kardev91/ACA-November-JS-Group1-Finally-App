@@ -7,8 +7,17 @@ import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import { firestore, auth } from "../../configurations/firebase";
 import { writeBatch, doc } from "firebase/firestore";
+import orderConfirmation from '../../images/orderConfirmation.png'
 
 const useStyles = makeStyles((theme) => ({
+  modalWrapper: {
+    width: '600px',
+    height: '300px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   buttonsWrapper: {
     maxWidth: 345,
     margin: "20px auto",
@@ -32,6 +41,13 @@ const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: "#fafafa",
   },
+  orderConfirmationImage: {
+    width: '200px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '0 auto'
+  }
 }));
 
 export default function CheckoutModal({ cartData }) {
@@ -104,19 +120,20 @@ export default function CheckoutModal({ cartData }) {
         CHECKOUT
       </button>
 
-      <Modal //need to be deleted
+      <Modal
         open={openConfirmation}
         onClose={() => setOpenConfirmation(false)}
         center
       >
-        <React.Fragment>
+        <div classNames={classes.modalWrapper}>
+          <img src={orderConfirmation} className={classes.orderConfirmationImage} alt='confImage'/>
           <Typography variant="h5" gutterBottom>
             Thank you for your order.
           </Typography>
           <Typography variant="subtitle1">
             We will send you an update when your order has shipped.
           </Typography>
-        </React.Fragment>
+        </div>
       </Modal>
 
       <Modal
@@ -128,7 +145,7 @@ export default function CheckoutModal({ cartData }) {
         <h2>Checkout</h2>
         <h4>Please fill out all fields</h4>
         {error ? (
-          <Alert severity="error" variant="filled" style={{ marginBottom: 20 }}>
+          <Alert severity="error" variant="filled" >
             {error}
           </Alert>
         ) : null}

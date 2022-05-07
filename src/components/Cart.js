@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import NavigationBar from "./NavigationBar/NavigationBar";
 import Footer from "./Footer/Footer";
 import CheckoutModal from "./Modals/CheckoutModal";
 import { makeStyles } from "@material-ui/core";
-import cartImg from "../cart.jpg";
+import cartImg from "../images/cart.jpg";
 import ProductCardForCart from "./ProductCardForCart";
-import emptyBagImg from "../nofound.svg";
+import emptyBagImg from "../images/nofound.svg";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -58,6 +58,10 @@ const useStyles = makeStyles({
     color: "#323232",
     fontWeight: "bold",
   },
+  image: {
+    width: "200px",
+    margin: "30px",
+  },
 });
 
 export default function Cart({ data }) {
@@ -75,10 +79,7 @@ export default function Cart({ data }) {
           <img className={classes.imageBanner} alt="a" src={cartImg} />
           {empty ? (
             <div>
-              <img
-                style={{ width: "200px", margin: "30px" }}
-                src={emptyBagImg}
-              />
+              <img alt="empty" className={classes.image} src={emptyBagImg} />
               <h2>Your bag is empty.</h2>
               <p>Please add something, to make the order.</p>
             </div>

@@ -22,11 +22,27 @@ const useStyles = makeStyles({
   root: {
     "&$focused $notchedOutline": {
       borderColor: "black",
-      label:'black'
+      label: "black",
     },
   },
-  focused: {},
-  notchedOutline: {},
+  main: {
+    height: "100vh",
+  },
+  image: {
+    backgroundImage:
+      "url(https://img.traveltriangle.com/blog/wp-content/uploads/2018/12/cover-for-street-food-in-sydney.jpg)",
+    backgroundRepeat: "no-repeat",
+  },
+  avatar: {
+    margin: 1,
+    backgroundColor: "secondary.main",
+  },
+  wrapper: {
+    margin: "20% 20% 2%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
 });
 
 export default function AuthForm({ loginHandle, forgotPassword }) {
@@ -53,40 +69,22 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" style={{ height: "100vh" }}>
+      <Grid container component="main" className={classes.main}>
         <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          style={{
-            backgroundImage:
-              "url(https://img.traveltriangle.com/blog/wp-content/uploads/2018/12/cover-for-street-food-in-sydney.jpg)",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
-            style={{
-              margin: "20% 20% 2%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar style={{ margin: 1, backgroundColor: "secondary.main" }}>
+          <Box className={classes.wrapper}>
+            <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate style={{ mrginTop: 2 }}>
+            <Box component="form" noValidate>
               {error ? (
                 <Alert
                   severity="error"
                   variant="filled"
-                  style={{ marginBottom: 20 }}
                 >
                   {error}
                 </Alert>
@@ -109,7 +107,7 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
                     notchedOutline: classes.notchedOutline,
                   },
                 }}
-                InputLabelProps={{style : {color : 'black'} }}
+                InputLabelProps={{ style: { color: "black" } }}
               />
               <TextField
                 margin="normal"
@@ -128,7 +126,7 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
                     notchedOutline: classes.notchedOutline,
                   },
                 }}
-                InputLabelProps={{style : {color : 'black'} }}
+                InputLabelProps={{ style: { color: "black" } }}
                 onChange={(event) => setPassword(event.target.value)}
               />
               <FormControlLabel
@@ -138,7 +136,6 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
               <Button
                 fullWidth
                 variant="contained"
-                style={{ marginTop: 3, marginBottom: 2 }}
                 color="primary"
                 onClick={loginUser}
               >

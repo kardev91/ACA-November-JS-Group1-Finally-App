@@ -4,17 +4,149 @@ import { Link } from "react-router-dom";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { SIDE_BAR_DATA } from "../../constant/SiderBarData";
-import "./NavigationBar.css";
-import ListItem from "../Shared/ListItem/ListItem";
+import ListItem from "../Shared/ListItem";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../configurations/firebase";
-import logo from "../../logo1.png";
+import logo from "../../images/logo.png";
 import SearchIcon from "@material-ui/icons/Search";
 import { SearchInputValueContext } from "../../contexts/SearchInputValueContext";
 import LoginPopUpModal from "../Modals/LoginPopUpModal";
 import { UserLogin } from "../../helper/UserAuth";
 import { CartDataContext } from "../../contexts/CartDataContext";
 import UpdatePassword from "../UpdatePassword";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  navBar: {
+    backgroundColor: "white",
+    width: "100%",
+    height: "80px",
+    display: "flex",
+    position: "fixed",
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottom: "0.5px solid #323232",
+    zIndex: "10",
+  },
+  menuBars: {
+    background: "none",
+    "& svg": {
+      color: "#323232",
+      width: "40px",
+      height: "40px",
+    },
+  },
+
+  navMenu: {
+    backgroundColor: "white",
+    width: "250px",
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    position: "fixed",
+    top: "0",
+    left: "-100%",
+    transition: "850ms",
+    zIndex: "9",
+    borderRight: "0.5px solid #323232",
+  },
+
+  navMenuActive: {
+    left: 0,
+    transition: "350ms",
+    width: "250px",
+    position: "fixed",
+    backgroundColor: "white",
+    height: "100%",
+    zIndex: 9,
+    paddingTop: "80px",
+    borderRight: "0.5px solid #323232",
+  },
+
+  navMenuItems: {
+    width: "80%",
+    margin: 0,
+  },
+
+  span: {
+    marginLeft: "16px",
+  },
+
+  icon: {
+    color: "white",
+  },
+
+  headerSearch: {
+    width: "30%",
+    height: "50px",
+    display: "flex",
+    justifyContent: "left",
+    alignItems: "center",
+    position: "relative",
+  },
+  headerLogo: {
+    width: "30%",
+    height: "70px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "& img": {
+      width: "160px",
+    },
+  },
+
+  headerControls: {
+    width: "30%",
+    height: "50px",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    position: "relative",
+  },
+  headerControlsButton: {
+    width: "100px",
+    height: "30px",
+    borderRadius: "30px",
+    margin: "0 10px",
+    cursor: "pointer",
+    background: "none",
+    border: "2px solid #323232",
+    fontSize: "15px",
+    color: "#323232",
+    fontWeight: "bold",
+  },
+  headerSearchInput: {
+    width: "260px",
+    height: "30px",
+    borderRadius: "30px",
+    border: "2px solid #323232",
+    marginLeft: "20px",
+    outline: "none",
+    paddingLeft: "40px",
+  },
+  headerSearchIcon: {
+    position: "absolute",
+    left: "70px",
+    top: "13px",
+    cursor: "pointer",
+  },
+
+  orderCount: {
+    width: "17px",
+    height: "17px",
+    display: "flex",
+    position: "absolute",
+    right: 0,
+    top: 0,
+    margin: 0,
+    backgroundColor: "red",
+    borderRadius: "10px",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "13px",
+    color: "white",
+  },
+});
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
@@ -24,6 +156,7 @@ function NavigationBar() {
   const [searchValue, setSearchValue] = searchValueData;
   const cartData = useContext(CartDataContext);
   const [cartCount, setCartCount] = useState(cartData.length);
+  const classes = useStyles();
   let history = useHistory();
 
   onAuthStateChanged(auth, (currentUser) => {
@@ -61,11 +194,11 @@ function NavigationBar() {
 
   return (
     <div>
-      <div className="navbar">
-        <div className="headerSearch">
-          <Link to="#" className="menu-bars">
+      <div className={classes.navBar}>
+        <div className={classes.headerSearch}>
+          <Link to="#" className={classes.menuBars}>
             <MenuOpenIcon
-              className={"icon"}
+              className={classes.icon}
               onClick={showSidebar}
               titleAccess={"Open menu"}
             />
@@ -74,13 +207,13 @@ function NavigationBar() {
             <Link to="search">
               <SearchIcon
                 onClick={searchButton}
-                className="headerSearchIcon"
+                className={classes.headerSearchIcon}
                 htmlColor="#323232"
               />
             </Link>
             <input
               value={inputValue}
-              className="headerSearchInput"
+              className={classes.headerSearchInput}
               onChange={(e) => inputChangeHandler(e)}
               onKeyPress={enterHendler}
               placeholder="Search food"
@@ -92,27 +225,31 @@ function NavigationBar() {
           onClick={() => {
             setInputValue("");
           }}
-          className="headerLogo"
+          className={classes.headerLogo}
         >
           <Link to="/">
-            <img src={logo} alt="" />
+            <img src={logo} alt="a" />
           </Link>
         </div>
-        <div className="headerControls">
+        <div className={classes.headerControls}>
           {!user ? (
             <>
               <Link to="sign-in">
-                <button className="headerControlsButton">Sign In</button>
+                <button className={classes.headerControlsButton}>
+                  Sign In
+                </button>
               </Link>
               <Link to="sign-up">
-                <button className="headerControlsButton">Sign Up</button>
+                <button className={classes.headerControlsButton}>
+                  Sign Up
+                </button>
               </Link>
             </>
           ) : (
             <>
               <UpdatePassword />
               {user.email}
-              <button onClick={logout} className="headerControlsButton">
+              <button onClick={logout} className={classes.headerControlsButton}>
                 Log Out
               </button>
             </>
@@ -125,7 +262,9 @@ function NavigationBar() {
           ) : (
             <>
               <Link to="cart">
-                {cartCount ? <p className="orderCount">{cartCount}</p> : null}
+                {cartCount ? (
+                  <p className={classes.orderCount}>{cartCount}</p>
+                ) : null}
                 <ShoppingCartIcon
                   fontSize="large"
                   htmlColor="#323232"
@@ -135,8 +274,8 @@ function NavigationBar() {
           )}
         </div>
       </div>
-      <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-        <ul className="nav-menu-items" onClick={showSidebar}>
+      <nav className={sidebar ? classes.navMenuActive : classes.navMenu}>
+        <ul className={classes.navMenuItems} onClick={showSidebar}>
           {SIDE_BAR_DATA.map((item, index) => {
             return <ListItem key={item.title} item={item} index={index} />;
           })}

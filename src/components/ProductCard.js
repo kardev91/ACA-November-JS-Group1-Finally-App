@@ -13,9 +13,7 @@ import {
 import { firestore } from "../configurations/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../configurations/firebase";
-import { UserLogin } from "../helper/UserAuth";
 import LoginPopUpModalForAdd from "./Modals/LoginPopUpModalForAdd";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import ProductInfoModal from "./Modals/ProductInfoModal";
 
 const useStyles = makeStyles({
@@ -34,7 +32,6 @@ const useStyles = makeStyles({
   },
   imageWrapper: {
     width: "100%",
-    height: "170px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -193,9 +190,9 @@ export default function ProductCard({ product, pathName }) {
   return (
     <div className={classes.wrapper}>
       <div className={classes.imageWrapper}>
-        <img className={classes.image} src={product.image} />
+        <img className={classes.image} alt="productImage" src={product.image} />
 
-        <ProductInfoModal product={product}/>
+        <ProductInfoModal product={product} />
       </div>
       <p className={classes.name}>{product.name}</p>
       <p className={classes.price}>{product.price} AMD</p>
@@ -215,7 +212,7 @@ export default function ProductCard({ product, pathName }) {
         </button>
       </div>
       {!user ? (
-        <LoginPopUpModalForAdd pathName={pathName}/>
+        <LoginPopUpModalForAdd pathName={pathName} />
       ) : (
         <button
           className={classes.orderButton}

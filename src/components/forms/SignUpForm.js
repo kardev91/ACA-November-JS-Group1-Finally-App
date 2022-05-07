@@ -67,7 +67,6 @@ export default function SignUpForm({ signUpHandle }) {
               <Alert
                 severity="error"
                 variant="filled"
-                style={{ marginBottom: 20 }}
               >
                 {error}
               </Alert>
@@ -133,7 +132,6 @@ export default function SignUpForm({ signUpHandle }) {
               </Grid>
             </Grid>
             <Button
-              // type="submit"
               fullWidth
               variant="contained"
               color="primary"
@@ -144,7 +142,7 @@ export default function SignUpForm({ signUpHandle }) {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/" variant="body2">
+                <Link to="/sign-in" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

@@ -8,6 +8,7 @@ import {
   Paper,
   Checkbox,
   TextField,
+  makeStyles,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -16,12 +17,25 @@ import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 
 const theme = createTheme();
+const useStyles = makeStyles({
+  main: {
+    height: '500px',
+    width: '500px',
+    padding: '70px'
+  },
+  wrapper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+})
 
 export default function AuthPopForm({ loginHandle, forgotPassword, pathName }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const history = useHistory();
+  const classes = useStyles()
 
   const loginUser = async () => {
     try {
@@ -29,13 +43,10 @@ export default function AuthPopForm({ loginHandle, forgotPassword, pathName }) {
       history.push(pathName);
       setError("");
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
       if (error.message === "Firebase: Error (auth/invalid-email).") {
         setError("Please enter valid email");
-      } else if (
-        error.message ===
-        "Firebase: Error (auth/wrong-password)."
-      ) {
+      } else if (error.message === "Firebase: Error (auth/wrong-password).") {
         setError("Your password is wrong");
       }
     }
@@ -43,30 +54,33 @@ export default function AuthPopForm({ loginHandle, forgotPassword, pathName }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" style={{ height: "100vh" }}>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6}  style={{
-          display: "contents",
-        }} square >
+      <Grid container component="main" className={classes.main}>
+        <Grid
+          item
+          xs={12}
+          sm={8}
+          md={5}
+          component={Paper}
+          elevation={6}
+          style={{
+            display: "contents",
+          }}
+          square
+        >
           <Box
-            style={{
-              margin: "20% 20% 2%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center"
-            }}
+            className={classes.wrapper}
           >
-            <Avatar style={{ margin: 1, backgroundColor: "secondary.main" }}>
+            <Avatar style={{backgroundColor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               You need to Sign in for adding product in the basket
             </Typography>
-            <Box component="form" noValidate style={{ mrginTop: 2 }}>
+            <Box component="form" noValidate>
               {error ? (
                 <Alert
                   severity="error"
                   variant="filled"
-                  style={{ marginBottom: 20 }}
                 >
                   {error}
                 </Alert>
@@ -102,7 +116,6 @@ export default function AuthPopForm({ loginHandle, forgotPassword, pathName }) {
               <Button
                 fullWidth
                 variant="contained"
-                style={{ marginTop: 3, marginBottom: 2 }}
                 color="primary"
                 onClick={loginUser}
               >
