@@ -31,7 +31,7 @@ export default function Homee() {
   const productList = useContext(ProductContext);
   const searchInputValue = useContext(SearchInputValueContext);
   const classes = useStyles();
-  let value = searchInputValue[0].toLowerCase().trim();
+  let value = searchInputValue[0].toLowerCase();
   let count = 0;
 
   return (
