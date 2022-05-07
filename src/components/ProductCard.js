@@ -143,7 +143,6 @@ export default function ProductCard({ product, pathName }) {
   });
 
   const addProduct = async (e, item) => {
-    console.log(item.id, "from product");
     e.target.innerHTML = "Added!";
     e.target.classList.add(classes.added);
     const user = auth.currentUser;
@@ -154,7 +153,6 @@ export default function ProductCard({ product, pathName }) {
       );
       const docs = await getDocs(collectionQuery);
       if (docs.docs.length === 0) {
-        console.log(item.id, "after add");
         await addDoc(collection(firestore, "cart"), {
           userId: user.uid,
           name: item.name,

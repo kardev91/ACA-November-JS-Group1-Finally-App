@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button";
 import { Grid, TextField, Typography } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
+import { firestore, auth } from "../../configurations/firebase";
+import { writeBatch, doc } from "firebase/firestore";
 
 const useStyles = makeStyles((theme) => ({
   buttonsWrapper: {
@@ -13,26 +15,26 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 15,
   },
   button: {
-    width: '150px',
-    height: '30px',
-    borderRadius: '30px',
-    margin: '0 10px',
-    cursor: 'pointer',
-    background: 'none',
-    border: '2px solid #323232',
-    fontSize: '15px',
-    color: '#323232',
-    fontWeight: 'bold',
-    '& span': {
-      margin: 0
-    }
+    width: "150px",
+    height: "30px",
+    borderRadius: "30px",
+    margin: "0 10px",
+    cursor: "pointer",
+    background: "none",
+    border: "2px solid #323232",
+    fontSize: "15px",
+    color: "#323232",
+    fontWeight: "bold",
+    "& span": {
+      margin: 0,
+    },
   },
   container: {
     backgroundColor: "#fafafa",
   },
 }));
 
-export default function CheckoutModal() {
+export default function CheckoutModal({ cartData }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openConfirmation, setOpenConfirmation] = useState(false);
@@ -43,12 +45,24 @@ export default function CheckoutModal() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
 
-  const handleOrderConfirmation = () => {
-    if (firstName === "" || lastName === "" || city === "" || address === "" || phoneNumber === "") {
+  const handleOrderConfirmation = async () => {
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      city === "" ||
+      address === "" ||
+      phoneNumber === ""
+    ) {
       setError(`Please fill all fields`);
     } else {
       setOpen(false);
       setOpenConfirmation(true);
+      const batch = writeBatch(firestore);
+
+      cartData.forEach((cart) => {
+        batch.delete(doc(firestore, "cart", cart.id));
+      });
+      await batch.commit();
     }
   };
 
@@ -82,7 +96,11 @@ export default function CheckoutModal() {
 
   return (
     <>
-      <button onClick={() => handleOpenCheckout()} variant="outlined" className={classes.button}>
+      <button
+        onClick={() => handleOpenCheckout()}
+        variant="outlined"
+        className={classes.button}
+      >
         CHECKOUT
       </button>
 
@@ -168,7 +186,6 @@ export default function CheckoutModal() {
               className={classes.button}
               onClick={() => handleOrderConfirmation()}
             >
-              
               PLACE ORDER
             </Button>
           </div>
