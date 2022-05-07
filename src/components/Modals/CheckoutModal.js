@@ -11,12 +11,12 @@ import orderConfirmation from '../../images/orderConfirmation.png'
 
 const useStyles = makeStyles((theme) => ({
   modalWrapper: {
-    width: '600px',
-    height: '300px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
+    width: "600px",
+    height: "300px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonsWrapper: {
     maxWidth: 345,
@@ -42,12 +42,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fafafa",
   },
   orderConfirmationImage: {
-    width: '200px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '0 auto'
-  }
+    width: "200px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 auto",
+  },
 }));
 
 export default function CheckoutModal({ cartData }) {
@@ -122,11 +122,24 @@ export default function CheckoutModal({ cartData }) {
 
       <Modal
         open={openConfirmation}
-        onClose={() => setOpenConfirmation(false)}
+        onClose={() => {
+          setOpenConfirmation(false);
+          const batch = writeBatch(firestore);
+
+          cartData.forEach((cart) => {
+            batch.delete(doc(firestore, "cart", cart.id));
+          });
+          batch.commit();
+        }}
         center
       >
-        <div classNames={classes.modalWrapper}>
-          <img src={orderConfirmation} className={classes.orderConfirmationImage} alt='confImage'/>
+        <div className={classes.modalWrapper}>
+          {console.log("mtav")}
+          <img
+            src={orderConfirmation}
+            className={classes.orderConfirmationImage}
+            alt="confImage"
+          />
           <Typography variant="h5" gutterBottom>
             Thank you for your order.
           </Typography>
@@ -137,7 +150,7 @@ export default function CheckoutModal({ cartData }) {
       </Modal>
 
       <Modal
-        classNames={classes.container}
+        className={classes.container}
         open={open}
         onClose={() => setOpen(false)}
         center
@@ -145,7 +158,7 @@ export default function CheckoutModal({ cartData }) {
         <h2>Checkout</h2>
         <h4>Please fill out all fields</h4>
         {error ? (
-          <Alert severity="error" variant="filled" >
+          <Alert severity="error" variant="filled">
             {error}
           </Alert>
         ) : null}
