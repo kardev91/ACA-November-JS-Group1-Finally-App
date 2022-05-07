@@ -123,7 +123,8 @@ export default function ProductCardForCart({ product }) {
       <div className={classes.productCount}>
         <button
           onClick={() => (
-            setCount(--count), updateCartProduct(count, product.id)
+            setCount(--count),
+            updateCartProduct(count, product.id)
           )}
           className={classes.button}
           disabled={count > 1 ? false : true}

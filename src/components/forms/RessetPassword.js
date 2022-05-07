@@ -6,6 +6,7 @@ import {
   Paper,
   CssBaseline,
   TextField,
+  makeStyles,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
@@ -16,12 +17,24 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 
 const theme = createTheme();
+const useStyles = makeStyles({
+  wrapper: {
+    margin: "20% 20% 2%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  main: {
+    height: '100vh'
+  }
+})
 
 export default function RessetPassword() {
   const [email, setEmail] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
   const history = useHistory();
+  const classes = useStyles()
 
   function reset(email) {
     sendPasswordResetEmail(auth, email)
@@ -40,7 +53,7 @@ export default function RessetPassword() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" style={{ height: "100vh" }}>
+      <Grid container component="main" className={classes.main}>
         <CssBaseline />
         <Grid
           item
@@ -53,22 +66,16 @@ export default function RessetPassword() {
           style={{ margin: "0 auto" }}
         >
           <Box
-            style={{
-              margin: "20% 20% 2%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            className={classes.wrapper}
           >
             <Typography component="h1" variant="h5">
               Resset Password
             </Typography>
-            <Box component="form" noValidate style={{ mrginTop: 2 }}>
+            <Box component="form" noValidate >
               {error ? (
                 <Alert
                   severity="error"
                   variant="filled"
-                  style={{ marginBottom: 20 }}
                 >
                   {error}
                 </Alert>
@@ -77,7 +84,6 @@ export default function RessetPassword() {
                 <Alert
                   severity="success"
                   variant="filled"
-                  style={{ marginBottom: 20 }}
                 >
                   {successMessage}
                 </Alert>
@@ -97,7 +103,6 @@ export default function RessetPassword() {
               <Button
                 fullWidth
                 variant="contained"
-                style={{ marginTop: 3, marginBottom: 2 }}
                 color="primary"
                 onClick={() => reset(email)}
               >

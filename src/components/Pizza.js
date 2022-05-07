@@ -3,7 +3,7 @@ import Footer from "./Footer/Footer";
 import NavigationBar from "./NavigationBar/NavigationBar";
 import { ProductContext } from "../contexts/ProductContext";
 import ProductCard from "./ProductCard";
-import pizzaImg from "../pizza.jpeg";
+import pizzaImg from "../images/pizza.jpeg";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -45,7 +45,7 @@ export default function Pizza() {
   return (
     <div className={classes.container}>
       <NavigationBar />
-      <img src={pizzaImg} className={classes.image} />
+      <img src={pizzaImg} alt="pizza" className={classes.image} />
       <div className={classes.productName}>
         <p>Pizza</p>
       </div>
@@ -54,7 +54,7 @@ export default function Pizza() {
           if (item.type === "pizza") {
             return <ProductCard product={item} pathName="pizza" />;
           }
-          return;
+          return null;
         })}
       </div>
       <Footer />
