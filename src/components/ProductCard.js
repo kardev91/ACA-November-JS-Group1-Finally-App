@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core";
 import {
   doc,
@@ -13,6 +13,7 @@ import {
 import { firestore } from "../configurations/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../configurations/firebase";
+import { AuthContext } from "../contexts/AuthContext";
 import LoginPopUpModalForAdd from "./Modals/LoginPopUpModalForAdd";
 import ProductInfoModal from "./Modals/ProductInfoModal";
 
@@ -109,17 +110,19 @@ const useStyles = makeStyles({
 export default function ProductCard({ product, pathName }) {
   const classes = useStyles();
   const [count, setCount] = useState(1);
-  const [user, setUser] = useState(null);
-  const [desabledButton, setDesabledButton] = useState(true);
+  const user = useContext(AuthContext);
+  const [isDisabledButton, setIsDisabledButton] = useState(true);
   const [productIdList, setProductIdList] = useState([]);
 
   useEffect(() => {
     if (count === 1) {
-      setDesabledButton(true);
+      setIsDisabledButton(true);
     }
   }, [count, user]);
 
   useEffect(() => {
+    let isMounted = true;
+
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         const collectionRef = query(
@@ -127,15 +130,16 @@ export default function ProductCard({ product, pathName }) {
           where("userId", "==", currentUser.uid)
         );
         onSnapshot(collectionRef, (querySnapshot) => {
-          setProductIdList(querySnapshot.docs.map((doc) => doc.data().id));
+          if (isMounted)
+            setProductIdList(querySnapshot.docs.map((doc) => doc.data().id));
         });
       }
     });
-  }, []);
 
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const addProduct = async (e, item) => {
     e.target.innerHTML = "Added!";
@@ -172,13 +176,13 @@ export default function ProductCard({ product, pathName }) {
     setTimeout(() => {
       e.target.innerHTML = "Add";
       e.target.classList.remove(classes.added);
-    }, 1000);
+    }, 2000);
   };
 
   const countEncreaser = () => {
     setCount(count + 1);
     if (count >= 1) {
-      setDesabledButton(false);
+      setIsDisabledButton(false);
     }
   };
   const countDecreaser = () => {
@@ -198,7 +202,7 @@ export default function ProductCard({ product, pathName }) {
         <button
           onClick={countDecreaser}
           className={classes.button}
-          disabled={desabledButton}
+          disabled={isDisabledButton}
         >
           -
         </button>

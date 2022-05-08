@@ -52,7 +52,7 @@ export default function Pizza() {
       <div className={classes.wrapper}>
         {productList.map((item) => {
           if (item.type === "pizza") {
-            return <ProductCard product={item} pathName="pizza" />;
+            return <ProductCard key={item.id} product={item} pathName="pizza" />;
           }
           return null;
         })}

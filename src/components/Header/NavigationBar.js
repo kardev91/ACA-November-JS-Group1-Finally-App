@@ -5,7 +5,7 @@ import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { SIDE_BAR_DATA } from "../../constant/SiderBarData";
 import ListItem from "../Shared/ListItem";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth } from "../../configurations/firebase";
 import logo from "../../images/logo.png";
 import SearchIcon from "@material-ui/icons/Search";
@@ -13,6 +13,7 @@ import { SearchInputValueContext } from "../../contexts/SearchInputValueContext"
 import LoginPopUpModal from "../Modals/LoginPopUpModal";
 import { UserLogin } from "../../helper/UserAuth";
 import { CartDataContext } from "../../contexts/CartDataContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import UpdatePassword from "./UpdatePassword";
 import { makeStyles } from "@material-ui/core";
 
@@ -129,8 +130,8 @@ const useStyles = makeStyles({
     fontWeight: "bold",
   },
   orderWrapper: {
-    display: 'flex',
-    position: 'relative'
+    display: "flex",
+    position: "relative",
   },
   orderCount: {
     width: "17px",
@@ -175,18 +176,13 @@ const useStyles = makeStyles({
 
 function NavigationBar() {
   const [sidebar, setSidebar] = useState(false);
-  const [user, setUser] = useState(null);
   const [inputValue, setInputValue] = useState("");
-  const searchValueData = useContext(SearchInputValueContext);
-  const [searchValue, setSearchValue] = searchValueData;
+  const [, setSearchValue] = useContext(SearchInputValueContext);
   const cartData = useContext(CartDataContext);
+  const user = useContext(AuthContext);
   const [cartCount, setCartCount] = useState(cartData.length);
   const classes = useStyles();
   let history = useHistory();
-
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
 
   useEffect(() => {
     setCartCount(cartData.length);
@@ -196,7 +192,6 @@ function NavigationBar() {
 
   const logout = async () => {
     await signOut(auth);
-    setUser(null);
     history.push("/");
     localStorage.clear();
   };
@@ -207,7 +202,6 @@ function NavigationBar() {
 
   const searchButton = () => {
     setSearchValue(inputValue);
-    setInputValue("");
   };
 
   const enterHendler = (e) => {
@@ -278,8 +272,9 @@ function NavigationBar() {
                 Log Out
               </button>
             </>
-          )}</div>
-            <div className={classes.orderWrapper}>
+          )}
+        </div>
+        <div className={classes.orderWrapper}>
           {!user ? (
             <>
               <LoginPopUpModal loginHandle={UserLogin} />

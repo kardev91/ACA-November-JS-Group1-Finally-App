@@ -25,6 +25,7 @@ function App() {
   const [productList, setProductList] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
   const [cartData, setCartData] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(
     () =>
@@ -37,6 +38,7 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
+        setCurrentUser(currentUser);
         const cartTableRef = query(
           collection(firestore, "cart"),
           where("userId", "==", currentUser.uid)
@@ -46,14 +48,14 @@ function App() {
             querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
           );
         });
-      }
+      } else setCurrentUser(null);
     });
   }, []);
 
   return (
     <div className="App">
       <Router>
-        <AuthContext.Provider value={auth.currentUser}>
+        <AuthContext.Provider value={currentUser}>
           <ProductContext.Provider value={productList}>
             <CartDataContext.Provider value={cartData}>
               <SearchInputValueContext.Provider
