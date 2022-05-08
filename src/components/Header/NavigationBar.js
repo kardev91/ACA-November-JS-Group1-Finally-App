@@ -128,13 +128,17 @@ const useStyles = makeStyles({
     fontSize: "14px",
     fontWeight: "bold",
   },
+  orderWrapper: {
+    display: 'flex',
+    position: 'relative'
+  },
   orderCount: {
     width: "17px",
     height: "17px",
     display: "flex",
     position: "absolute",
     right: 0,
-    top: 0,
+    bottom: 25,
     margin: 0,
     backgroundColor: "red",
     borderRadius: "10px",
@@ -274,8 +278,8 @@ function NavigationBar() {
                 Log Out
               </button>
             </>
-          )}
-
+          )}</div>
+            <div className={classes.orderWrapper}>
           {!user ? (
             <>
               <LoginPopUpModal loginHandle={UserLogin} />
