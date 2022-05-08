@@ -90,7 +90,7 @@ const useStyles = makeStyles({
 
 export default function ProductCardForCart({ product }) {
   const classes = useStyles();
-  let   [count, setCount] = useState(product.count);
+  let [count, setCount] = useState(product.count);
   const [price, setPrice] = useState(product.price);
 
   useEffect(() => {
@@ -104,9 +104,18 @@ export default function ProductCardForCart({ product }) {
     });
   };
 
-  const deleteProduct = (item) => {
+  const deleteProduct = () => {
     deleteDoc(doc(firestore, "cart", product.id));
   };
+
+  const countEncreaser = () => {
+    setCount(++count)
+    updateCartProduct(count, product.id)
+  }
+  const countDecreaser = () => {
+    setCount(--count)
+    updateCartProduct(count, product.id)
+  }
 
   return (
     <div className={classes.wrapper}>
@@ -121,10 +130,7 @@ export default function ProductCardForCart({ product }) {
       </div>
       <div className={classes.productCount}>
         <button
-          onClick={() => (
-            setCount(--count),
-            updateCartProduct(count, product.id)
-          )}
+          onClick={countDecreaser}
           className={classes.button}
           disabled={count > 1 ? false : true}
         >
@@ -134,9 +140,7 @@ export default function ProductCardForCart({ product }) {
           <p>{count}</p>
         </div>
         <button
-          onClick={() => (
-            setCount(++count), updateCartProduct(count, product.id)
-          )}
+          onClick={countEncreaser}
           className={classes.button}
         >
           +
@@ -147,7 +151,7 @@ export default function ProductCardForCart({ product }) {
       </div>
       <button
         className={classes.deleteButton}
-        onClick={() => deleteProduct(product)}
+        onClick={() => deleteProduct()}
       >
         Delete
       </button>

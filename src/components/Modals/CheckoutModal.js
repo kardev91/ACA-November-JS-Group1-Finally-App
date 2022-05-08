@@ -9,7 +9,7 @@ import { firestore } from "../../configurations/firebase";
 import { writeBatch, doc } from "firebase/firestore";
 import orderConfirmation from "../../images/orderConfirmation.png";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   modalWrapper: {
     width: "600px",
     height: "300px",
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     margin: "0 auto",
   },
-}));
+});
 
 export default function CheckoutModal({ cartData }) {
   const classes = useStyles();
@@ -128,7 +128,6 @@ export default function CheckoutModal({ cartData }) {
         center
       >
         <div className={classes.modalWrapper}>
-          \{" "}
           <img
             src={orderConfirmation}
             className={classes.orderConfirmationImage}

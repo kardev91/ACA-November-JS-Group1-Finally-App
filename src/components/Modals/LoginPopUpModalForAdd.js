@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Modal } from "react-responsive-modal";
-import AuthPopForm from "../forms/AuthPopUpForm";
+import AuthPopForm from "../Forms/AuthPopUpForm";
 import { UserLogin } from "../../helper/UserAuth";
 import { makeStyles } from "@material-ui/core";
 
@@ -16,26 +16,25 @@ const useStyles = makeStyles({
     marginTop: "5px",
     "&:hover": {
       backgroundColor: "#ffc836",
-      color: 'white'
-    }
+      color: "white",
+    },
   },
-})
+});
 
-function LoginPopUpModalForAdd({ loginHandle, forgotPassword, pathName}) {
-  const classes = useStyles()
+function LoginPopUpModalForAdd({ pathName }) {
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
 
   return (
     <>
       <div>
-        <button
-          onClick={() => setOpen(true)}
-          className={classes.orderButton}
-        >Add</button>
+        <button onClick={() => setOpen(true)} className={classes.orderButton}>
+          Add
+        </button>
       </div>
 
       <Modal open={open} onClose={() => setOpen(false)} center>
-        <AuthPopForm loginHandle={UserLogin} pathName={pathName}/>
+        <AuthPopForm loginHandle={UserLogin} pathName={pathName} />
       </Modal>
     </>
   );

@@ -1,11 +1,11 @@
 import React from "react";
-import NavigationBar from "./NavigationBar/NavigationBar";
-import Footer from "./Footer/Footer";
-import CheckoutModal from "./Modals/CheckoutModal";
+import NavigationBar from "../Header/NavigationBar";
+import Footer from "../Footer/Footer";
+import CheckoutModal from "../Modals/CheckoutModal";
 import { makeStyles } from "@material-ui/core";
-import cartImg from "../images/cart.jpg";
-import ProductCardForCart from "./ProductCardForCart";
-import emptyBagImg from "../images/nofound.svg";
+import cartImg from "../../images/cart.jpg";
+import ProductCardForCart from "../ProductCardForCart";
+import emptyBagImg from "../../images/nofound.svg";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -68,7 +68,6 @@ export default function Cart({ data }) {
   const classes = useStyles();
   let totalPrice = 0;
   let empty = null;
-
   data.length ? (empty = false) : (empty = true);
 
   return (
@@ -101,7 +100,7 @@ export default function Cart({ data }) {
                       CONTINUE SHOPPING
                     </button>
                   </Link>
-                  <CheckoutModal cartData={data}/>
+                  <CheckoutModal cartData={data} />
                 </div>
               </div>
             </>

@@ -13,11 +13,10 @@ import {
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 
-const theme = createTheme();
 const useStyles = makeStyles({
   root: {
     "&$focused $notchedOutline": {
@@ -58,7 +57,6 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
       history.push("/");
       setError("");
     } catch (error) {
-      console.log(error.message);
       if (error.message === "Firebase: Error (auth/invalid-email).") {
         setError("Please enter valid email");
       } else if (error.message === "Firebase: Error (auth/wrong-password).") {
@@ -68,7 +66,7 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <Grid container component="main" className={classes.main}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -82,10 +80,7 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
             </Typography>
             <Box component="form" noValidate>
               {error ? (
-                <Alert
-                  severity="error"
-                  variant="filled"
-                >
+                <Alert severity="error" variant="filled">
                   {error}
                 </Alert>
               ) : null}

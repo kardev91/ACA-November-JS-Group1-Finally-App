@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import Footer from "./Footer/Footer";
-import NavigationBar from "./NavigationBar/NavigationBar";
-import { ProductContext } from "../contexts/ProductContext";
-import ProductCard from "./ProductCard";
-import burgerImg from "../images/burger.jpeg";
+import Footer from "../Footer/Footer";
+import NavigationBar from "../Header/NavigationBar";
+import { ProductContext } from "../../contexts/ProductContext";
+import ProductCard from "../ProductCard";
+import dessertImg from "../../images/dessert.jpeg";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -38,23 +38,23 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Burger() {
+export default function Dessert() {
   const classes = useStyles();
   const productList = useContext(ProductContext);
 
   return (
     <div className={classes.container}>
       <NavigationBar />
-      <img src={burgerImg} alt="burger" className={classes.image} />
+      <img src={dessertImg} alt="dessert" className={classes.image} />
       <div className={classes.productName}>
-        <p>Burgers</p>
+        <p>Dessert</p>
       </div>
       <div className={classes.wrapper}>
         {productList.map((item) => {
-          if (item.type === "burger") {
-            return <ProductCard product={item} pathName="burgers" />;
+          if (item.type === "dessert") {
+            return <ProductCard product={item} pathName="dessert" />;
           }
-          return null
+          return null;
         })}
       </div>
       <Footer />

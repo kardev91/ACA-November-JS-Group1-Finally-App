@@ -1,21 +1,21 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import Salad from "./components/Salad";
-import Pizza from "./components/Pizza";
-import Burger from "./components/Burger";
-import Barbecue from "./components/Barbecue";
-import Drink from "./components/Drink";
-import Dessert from "./components/Dessert";
-import Search from "./components/Search";
+import Salad from "./components/ProductPages/Salad";
+import Pizza from "./components/ProductPages/Pizza";
+import Burger from "./components/ProductPages/Burger";
+import Barbecue from "./components/ProductPages/Barbecue";
+import Drink from "./components/ProductPages/Drink";
+import Dessert from "./components/ProductPages/Dessert";
+import Search from "./components/Header/Search";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { AuthContext } from "./contexts/AuthContext";
 import { ProductContext } from "./contexts/ProductContext";
 import { CartDataContext } from "./contexts/CartDataContext";
-import RessetPassword from "./components/forms/RessetPassword";
-import Auth from "./components/Auth";
+import RessetPassword from "./components/Forms/RessetPassword";
+import Auth from "./components/UserSignin/Auth";
 import Home from "./components/Home";
-import SignUp from "./components/SignUp";
-import Cart from "./components/Cart";
+import SignUp from "./components/UserSignin/SignUp";
+import Cart from "./components/Header/Cart";
 import { SearchInputValueContext } from "./contexts/SearchInputValueContext";
 import { firestore, auth } from "./configurations/firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
@@ -35,17 +35,18 @@ function App() {
   );
 
   useEffect(() => {
-
     onAuthStateChanged(auth, (currentUser) => {
-      if(currentUser){
+      if (currentUser) {
         const cartTableRef = query(
           collection(firestore, "cart"),
           where("userId", "==", currentUser.uid)
         );
         onSnapshot(cartTableRef, (querySnapshot) => {
-          setCartData(querySnapshot.docs.map((doc) => ({...doc.data(),id: doc.id})));
+          setCartData(
+            querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          );
         });
-      };
+      }
     });
   }, []);
 

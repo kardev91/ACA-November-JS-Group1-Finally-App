@@ -13,11 +13,9 @@ import {
 import Alert from "@material-ui/lab/Alert";
 
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
-
-const theme = createTheme();
 
 export default function SignUpForm({ signUpHandle }) {
   const [firstName, setFirstName] = useState("");
@@ -45,7 +43,7 @@ export default function SignUpForm({ signUpHandle }) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -64,10 +62,7 @@ export default function SignUpForm({ signUpHandle }) {
           </Typography>
           <Box component="form" noValidate style={{ marginTop: 10 }}>
             {error ? (
-              <Alert
-                severity="error"
-                variant="filled"
-              >
+              <Alert severity="error" variant="filled">
                 {error}
               </Alert>
             ) : null}
