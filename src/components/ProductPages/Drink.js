@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import Footer from "./Footer/Footer";
-import NavigationBar from "./NavigationBar/NavigationBar";
-import { ProductContext } from "../contexts/ProductContext";
-import ProductCard from "./ProductCard";
-import pizzaImg from "../images/pizza.jpeg";
+import Footer from "../Footer/Footer";
+import NavigationBar from "../Header/NavigationBar";
+import { ProductContext } from "../../contexts/ProductContext";
+import ProductCard from "../ProductCard";
+import drinkImg from "../../images/drink.jpeg";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -38,21 +38,21 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Pizza() {
+export default function Drink() {
   const classes = useStyles();
   const productList = useContext(ProductContext);
 
   return (
     <div className={classes.container}>
       <NavigationBar />
-      <img src={pizzaImg} alt="pizza" className={classes.image} />
+      <img src={drinkImg} alt="drink" className={classes.image} />
       <div className={classes.productName}>
-        <p>Pizza</p>
+        <p>Drinks</p>
       </div>
       <div className={classes.wrapper}>
         {productList.map((item) => {
-          if (item.type === "pizza") {
-            return <ProductCard product={item} pathName="pizza" />;
+          if (item.type === "drink") {
+            return <ProductCard product={item} pathName="drinks" />;
           }
           return null;
         })}

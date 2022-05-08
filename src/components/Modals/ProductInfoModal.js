@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     right: 5,
     color: "white",
     cursor: "pointer",
-    opacity: '70%'
+    opacity: "70%",
   },
   container: {
     width: "700px",
@@ -79,7 +79,7 @@ export default function ProductInfoModal({ product }) {
       <Modal open={open} onClose={() => setOpen(false)} center>
         <div className={classes.container}>
           <div className={classes.imageWrapper}>
-            <img className={classes.image} src={product.image} />
+            <img className={classes.image} alt={product.name} src={product.image} />
           </div>
           <div className={classes.infoWrapper}>
             <p className={classes.name}>{product.name}</p>

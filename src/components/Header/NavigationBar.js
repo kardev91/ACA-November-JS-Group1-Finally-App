@@ -13,7 +13,7 @@ import { SearchInputValueContext } from "../../contexts/SearchInputValueContext"
 import LoginPopUpModal from "../Modals/LoginPopUpModal";
 import { UserLogin } from "../../helper/UserAuth";
 import { CartDataContext } from "../../contexts/CartDataContext";
-import UpdatePassword from "../UpdatePassword";
+import UpdatePassword from "./UpdatePassword";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -30,13 +30,13 @@ const useStyles = makeStyles({
   },
   menuBars: {
     background: "none",
+    display: "flex",
     "& svg": {
       color: "#323232",
       width: "40px",
       height: "40px",
     },
   },
-
   navMenu: {
     backgroundColor: "white",
     width: "250px",
@@ -50,7 +50,6 @@ const useStyles = makeStyles({
     zIndex: "9",
     borderRight: "0.5px solid #323232",
   },
-
   navMenuActive: {
     left: 0,
     transition: "350ms",
@@ -62,22 +61,18 @@ const useStyles = makeStyles({
     paddingTop: "80px",
     borderRight: "0.5px solid #323232",
   },
-
   navMenuItems: {
     width: "80%",
     margin: 0,
   },
-
   span: {
     marginLeft: "16px",
   },
-
   icon: {
     color: "white",
   },
-
   headerSearch: {
-    width: "30%",
+    width: "27%",
     height: "50px",
     display: "flex",
     justifyContent: "left",
@@ -94,9 +89,8 @@ const useStyles = makeStyles({
       width: "160px",
     },
   },
-
   headerControls: {
-    width: "30%",
+    width: "27%",
     height: "50px",
     display: "flex",
     justifyContent: "flex-end",
@@ -111,12 +105,12 @@ const useStyles = makeStyles({
     cursor: "pointer",
     background: "none",
     border: "2px solid #323232",
-    fontSize: "15px",
+    fontSize: "14px",
     color: "#323232",
     fontWeight: "bold",
   },
   headerSearchInput: {
-    width: "260px",
+    width: "240px",
     height: "30px",
     borderRadius: "30px",
     border: "2px solid #323232",
@@ -126,11 +120,14 @@ const useStyles = makeStyles({
   },
   headerSearchIcon: {
     position: "absolute",
-    left: "70px",
+    left: "30px",
     top: "13px",
     cursor: "pointer",
   },
-
+  userEmail: {
+    fontSize: "14px",
+    fontWeight: "bold",
+  },
   orderCount: {
     width: "17px",
     height: "17px",
@@ -145,6 +142,30 @@ const useStyles = makeStyles({
     alignItems: "center",
     fontSize: "13px",
     color: "white",
+  },
+  "@media screen and (max-width: 900px)": {
+    headerSearchInput: {
+      width: "200px",
+    },
+  },
+  "@media screen and (max-width: 800px)": {
+    headerSearchInput: {
+      width: "160px",
+    },
+    userEmail: {
+      display: "none",
+    },
+  },
+  "@media screen and (max-width: 700px)": {
+    headerControlsButton: {
+      display: "none",
+    },
+    headerSearchInput: {
+      display: "none",
+    },
+    headerSearchIcon: {
+      display: "none",
+    },
   },
 });
 
@@ -195,14 +216,14 @@ function NavigationBar() {
   return (
     <div>
       <div className={classes.navBar}>
+        <Link to="#" className={classes.menuBars}>
+          <MenuOpenIcon
+            className={classes.icon}
+            onClick={showSidebar}
+            titleAccess={"Open menu"}
+          />
+        </Link>
         <div className={classes.headerSearch}>
-          <Link to="#" className={classes.menuBars}>
-            <MenuOpenIcon
-              className={classes.icon}
-              onClick={showSidebar}
-              titleAccess={"Open menu"}
-            />
-          </Link>
           <label>
             <Link to="search">
               <SearchIcon
@@ -248,7 +269,7 @@ function NavigationBar() {
           ) : (
             <>
               <UpdatePassword />
-              {user.email}
+              <span className={classes.userEmail}>{user.email}</span>
               <button onClick={logout} className={classes.headerControlsButton}>
                 Log Out
               </button>

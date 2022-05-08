@@ -12,30 +12,29 @@ import {
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 
-const theme = createTheme();
 const useStyles = makeStyles({
   main: {
-    height: '500px',
-    width: '500px',
-    padding: '70px'
+    height: "500px",
+    width: "500px",
+    padding: "70px",
   },
   wrapper: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
-})
+});
 
 export default function AuthPopForm({ loginHandle, forgotPassword, pathName }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const history = useHistory();
-  const classes = useStyles()
+  const classes = useStyles();
 
   const loginUser = async () => {
     try {
@@ -43,7 +42,6 @@ export default function AuthPopForm({ loginHandle, forgotPassword, pathName }) {
       history.push(pathName);
       setError("");
     } catch (error) {
-      console.log(error.message);
       if (error.message === "Firebase: Error (auth/invalid-email).") {
         setError("Please enter valid email");
       } else if (error.message === "Firebase: Error (auth/wrong-password).") {
@@ -53,7 +51,7 @@ export default function AuthPopForm({ loginHandle, forgotPassword, pathName }) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <Grid container component="main" className={classes.main}>
         <Grid
           item
@@ -67,10 +65,8 @@ export default function AuthPopForm({ loginHandle, forgotPassword, pathName }) {
           }}
           square
         >
-          <Box
-            className={classes.wrapper}
-          >
-            <Avatar style={{backgroundColor: "secondary.main" }}>
+          <Box className={classes.wrapper}>
+            <Avatar style={{ backgroundColor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -78,10 +74,7 @@ export default function AuthPopForm({ loginHandle, forgotPassword, pathName }) {
             </Typography>
             <Box component="form" noValidate>
               {error ? (
-                <Alert
-                  severity="error"
-                  variant="filled"
-                >
+                <Alert severity="error" variant="filled">
                   {error}
                 </Alert>
               ) : null}

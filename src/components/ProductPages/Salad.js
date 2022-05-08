@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import Footer from "./Footer/Footer";
-import NavigationBar from "./NavigationBar/NavigationBar";
-import { ProductContext } from "../contexts/ProductContext";
-import ProductCard from "./ProductCard";
-import saladImg from "../images/salad.jpeg";
+import Footer from "../Footer/Footer";
+import NavigationBar from "../Header/NavigationBar";
+import { ProductContext } from "../../contexts/ProductContext";
+import ProductCard from "../ProductCard";
+import saladImg from "../../images/salad.jpeg";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({

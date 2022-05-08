@@ -1,20 +1,20 @@
 import React from "react";
 import { Modal } from "react-responsive-modal";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import AuthPopForm from "../forms/AuthPopUpForm";
+import AuthPopForm from "../Forms/AuthPopUpForm";
 import { UserLogin } from "../../helper/UserAuth";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   icon: {
-    '&:hover': {
-      cursor: 'pointer'
-    }
-  }
-})
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+});
 
-function LoginPopUpModal({ loginHandle, forgotPassword}) {
-  const classes = useStyles()
+function LoginPopUpModal() {
+  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   return (

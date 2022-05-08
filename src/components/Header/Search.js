@@ -1,12 +1,12 @@
-import Footer from "./Footer/Footer";
-import NavigationBar from "./NavigationBar/NavigationBar";
+import Footer from "../Footer/Footer";
+import NavigationBar from "../Header/NavigationBar";
 import React, { useContext } from "react";
-import { ProductContext } from "../contexts/ProductContext";
-import ProductCard from "./ProductCard";
-import homepagePhoto from "../images/homepagePhoto1.jpg";
-import { SearchInputValueContext } from "../contexts/SearchInputValueContext";
+import { ProductContext } from "../../contexts/ProductContext";
+import ProductCard from "./../ProductCard";
+import homepagePhoto from "../../images/homepagePhoto1.jpg";
+import { SearchInputValueContext } from "../../contexts/SearchInputValueContext";
 import { makeStyles } from "@material-ui/core";
-import nofound from "../images/nofound.svg";
+import nofound from "../../images/nofound.svg";
 
 const useStyles = makeStyles({
   wrapper: {

@@ -102,9 +102,7 @@ export default function Footer() {
       </div>
       <div className={classes.copyright}>
         <FontAwesomeIcon icon={faCopyright} />{" "}
-        <span>
-          {new Date().getFullYear()} All rights reserved
-        </span>
+        <span>{new Date().getFullYear()} All rights reserved</span>
       </div>
     </footer>
   );

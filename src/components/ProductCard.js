@@ -21,7 +21,6 @@ const useStyles = makeStyles({
     width: "250px",
     height: "350px",
     margin: "20px 30px",
-    // borderRadius: "10px",
     backgroundColor: "white",
     boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.2)",
     "&:hover": {
@@ -40,7 +39,6 @@ const useStyles = makeStyles({
   image: {
     width: "100%",
     height: "100%",
-    // borderRadius: "10px",
   },
   productCount: {
     width: "100%",

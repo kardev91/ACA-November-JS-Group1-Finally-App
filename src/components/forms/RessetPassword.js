@@ -9,14 +9,12 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 import { useState } from "react";
 import { auth } from "../../configurations/firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 
-const theme = createTheme();
 const useStyles = makeStyles({
   wrapper: {
     margin: "20% 20% 2%",
@@ -25,16 +23,16 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   main: {
-    height: '100vh'
-  }
-})
+    height: "100vh",
+  },
+});
 
 export default function RessetPassword() {
   const [email, setEmail] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
   const history = useHistory();
-  const classes = useStyles()
+  const classes = useStyles();
 
   function reset(email) {
     sendPasswordResetEmail(auth, email)
@@ -52,7 +50,7 @@ export default function RessetPassword() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <Grid container component="main" className={classes.main}>
         <CssBaseline />
         <Grid
@@ -65,26 +63,18 @@ export default function RessetPassword() {
           square
           style={{ margin: "0 auto" }}
         >
-          <Box
-            className={classes.wrapper}
-          >
+          <Box className={classes.wrapper}>
             <Typography component="h1" variant="h5">
               Resset Password
             </Typography>
-            <Box component="form" noValidate >
+            <Box component="form" noValidate>
               {error ? (
-                <Alert
-                  severity="error"
-                  variant="filled"
-                >
+                <Alert severity="error" variant="filled">
                   {error}
                 </Alert>
               ) : null}
               {successMessage ? (
-                <Alert
-                  severity="success"
-                  variant="filled"
-                >
+                <Alert severity="success" variant="filled">
                   {successMessage}
                 </Alert>
               ) : null}

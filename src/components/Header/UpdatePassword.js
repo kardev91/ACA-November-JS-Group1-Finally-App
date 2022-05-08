@@ -5,11 +5,11 @@ import { Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import { updatePassword } from "firebase/auth";
-import { auth } from "../configurations/firebase";
-import avatar from '../images/avatar.png'
+import { auth } from "../../configurations/firebase";
+import avatar from '../../images/avatar.png'
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   box: {
     width: 360,
     height: 400,
@@ -83,8 +83,13 @@ const useStyles = makeStyles((theme) => ({
       textAlign:'center',
       fontSize:18,
       fontWeight: 'bold'
-  }
-}));
+  },
+  '@media screen and (max-width: 900px)': {
+    avatar: {
+      display: 'none'
+    }
+  },
+});
 
 export default function UpdatePassword() {
   const [open, setOpen] = useState(false);
