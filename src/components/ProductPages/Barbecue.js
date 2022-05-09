@@ -52,7 +52,7 @@ export default function Barbecue() {
       <div className={classes.wrapper}>
         {productList.map((item) => {
           if (item.type === "barbecue") {
-            return <ProductCard product={item} pathName="barbecue" />;
+            return <ProductCard key={item.id} product={item} pathName="barbecue" />;
           }
           return null;
         })}

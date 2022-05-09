@@ -13,17 +13,12 @@ import {
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 
+const theme = createTheme();
 const useStyles = makeStyles({
-  root: {
-    "&$focused $notchedOutline": {
-      borderColor: "black",
-      label: "black",
-    },
-  },
   main: {
     height: "100vh",
   },
@@ -44,7 +39,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AuthForm({ loginHandle, forgotPassword }) {
+export default function AuthForm({ loginHandle }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -66,7 +61,7 @@ export default function AuthForm({ loginHandle, forgotPassword }) {
   };
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <Grid container component="main" className={classes.main}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />

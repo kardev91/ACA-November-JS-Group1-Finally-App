@@ -52,7 +52,7 @@ export default function Dessert() {
       <div className={classes.wrapper}>
         {productList.map((item) => {
           if (item.type === "dessert") {
-            return <ProductCard product={item} pathName="dessert" />;
+            return <ProductCard key={item.id} product={item} pathName="dessert" />;
           }
           return null;
         })}

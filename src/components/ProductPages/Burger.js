@@ -52,7 +52,7 @@ export default function Burger() {
       <div className={classes.wrapper}>
         {productList.map((item) => {
           if (item.type === "burger") {
-            return <ProductCard product={item} pathName="burgers" />;
+            return <ProductCard key={item.id} product={item} pathName="burgers" />;
           }
           return null;
         })}

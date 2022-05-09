@@ -52,7 +52,7 @@ export default function Salad() {
       <div className={classes.wrapper}>
         {productList.map((item) => {
           if (item.type === "salad") {
-            return <ProductCard product={item} pathName="salads" />;
+            return <ProductCard key={item.id} product={item} pathName="salads" />;
           }
           return null;
         })}

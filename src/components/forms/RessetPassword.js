@@ -9,12 +9,13 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { useState } from "react";
 import { auth } from "../../configurations/firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 
+const theme = createTheme();
 const useStyles = makeStyles({
   wrapper: {
     margin: "20% 20% 2%",
@@ -50,7 +51,7 @@ export default function RessetPassword() {
   }
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <Grid container component="main" className={classes.main}>
         <CssBaseline />
         <Grid
