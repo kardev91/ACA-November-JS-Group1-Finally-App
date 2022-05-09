@@ -45,7 +45,7 @@ export default function RessetPassword() {
         }, 3000);
       })
       .catch((error) => {
-        setError(error.message);
+        setError('Please fill email input');
         setSuccessMessage("");
       });
   }
