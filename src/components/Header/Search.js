@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Homee() {
+export default function Search() {
   const productList = useContext(ProductContext);
   const searchInputValue = useContext(SearchInputValueContext);
   const classes = useStyles();
@@ -60,7 +60,7 @@ export default function Homee() {
             }
             if (index === productList.length - 1 && count === 0) {
               return (
-                <div>
+                <div key={1}>
                   <img alt="noFound" src={nofound} />
                   <h1 className={classes.sorryText}>No Results</h1>
                   <p>We’re working on getting more foods for you.</p>
